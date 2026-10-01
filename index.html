@@ -168,7 +168,8 @@ const WEEKS = [
  { num:3, dates:"Oct 5–11", tgt:"154.0",
    q:"4 min easy → 5× (3 min @ 5:25 / 90s easy) → 3 min easy. 30 min total.",
    l:"7K easy.",
-   c:"HS opener · Dips 3×6-8 · Pull-ups +2.5 if clean · L-sit 4× max, one-leg extensions · Core circuit ×3",
+   c:"HS opener (optional) · Dips & Pull-ups at +10: add a rep before adding weight · L-sit 4× max, one-leg extensions · Core circuit ×3",
+   wr:"OCT 8 RULE — decided in advance, not on the day: ≤155.0 → hold, it's working. 155.1–155.8 → hold one more week, probably water still clearing. ≥155.9 → look at the weekend first, then drop 200/day to 2,200 / 1,925.",
    f:"Lifts should be back at or above your late-July numbers by the end of this week. If they aren't, that's a tripwire, not a motivation problem. Add the 150." },
  { num:4, dates:"Oct 12–18", tgt:"153.3", down:true,
    q:"20 min easy, no intervals. 20 min total.",
@@ -395,7 +396,7 @@ function render(scroll) {
     body = `<div class="slab">${today.toUpperCase()} · WEEK ${wk}</div>` +
       TODAY_MAP[today].map(k => sessionCard(SESSIONS.find(s => s.k === k), week, true)).join("");
     if (today === "Thu") body += `<div class="card key"><div class="slab">THURSDAY AM WEIGH-IN</div>
-      <div class="sub">Wake, bathroom, weigh, before food or water. Same conditions every week. Then the photo.</div>
+      <div class="sub">Wake, bathroom, weigh, before food or water. Same conditions every week. Then the photo.</div>${week.wr ? `<div class="note" style="color:var(--tx2);margin-top:4px">${week.wr}</div>` : ""}
       <input id="w-today" inputmode="decimal" placeholder="Target ~${week.tgt} lb" value="${esc(logs[wk] && logs[wk].weight)}"
         oninput="setWeek('weight',this.value)" onchange="save()" onblur="save();render(false)"></div>`;
   }
@@ -403,7 +404,7 @@ function render(scroll) {
   if (tab === "log") {
     body = SESSIONS.map(S => sessionCard(S, week, false)).join("") +
       `<div class="card key"><div class="slab">THURSDAY AM WEIGH-IN (LB)</div>
-        <div class="sub">Target this week: ~${week.tgt} lb</div>
+        <div class="sub">Target this week: ~${week.tgt} lb</div>${week.wr ? `<div class="note" style="color:var(--tx2);margin-top:4px">${week.wr}</div>` : ""}
         <input id="w-log" inputmode="decimal" placeholder="e.g. 154.2" value="${esc(logs[wk] && logs[wk].weight)}"
           oninput="setWeek('weight',this.value)" onchange="save()" onblur="save();render(false)"></div>`;
     if (wk >= 5) {

@@ -149,9 +149,9 @@ const START = new Date(2026, 8, 21);           // Mon Sep 21 2026
 const KEY   = "axq4block_v1";
 
 const PHASES = [
-  { id:1, name:"CUT",    weeks:[1,2,3,4,5,6],  cal:"2,400", rest:"2,125", mac:"P165 · C273 · F72", rate:"0.7 lb/wk" },
-  { id:2, name:"FINISH", weeks:[7,8,9,10],     cal:"2,500", rest:"2,250", mac:"P165 · C290 · F75", rate:"0.5 lb/wk" },
-  { id:3, name:"HOLD",   weeks:[11,12],        cal:"2,600→2,750", rest:"same", mac:"P175 · C320 · F80", rate:"flat" },
+  { id:1, name:"CUT",    weeks:[1,2,3,4,5,6],  cal:"2,100", rest:"1,900", mac:"P165 · C220 · F62", rate:"0.5–0.7 lb/wk" },
+  { id:2, name:"FINISH", weeks:[7,8,9,10],     cal:"2,200", rest:"2,000", mac:"P165 · C240 · F65", rate:"0.5 lb/wk" },
+  { id:3, name:"HOLD",   weeks:[11,12],        cal:"2,250→2,350", rest:"same", mac:"P170 · C265 · F68", rate:"flat" },
 ];
 
 const WEEKS = [
@@ -176,32 +176,32 @@ const WEEKS = [
    l:"6K easy.",
    c:"Deload: hold the same weights, cut one set from dips and pull-ups. Keep the L-sit work.",
    f:"DOWN WEEK — and it has to deload the lifting or it isn't one: drop the LAST set of every exercise on all four lifting days, keep the weights identical. Calories stay at 2,400; this is a recovery week, not a diet break. Expect a bigger-than-usual drop on Thursday as inflammation clears." },
- { num:5, dates:"Oct 19–25", tgt:"152.5",
+ { num:5, dates:"Oct 19–25", tgt:"156.0",
    q:"4 min easy → 3× (5 min @ 5:30 / 2 min easy) → 3 min easy. 28 min total.",
    l:"7.5K easy.",
    c:"HS opener · Dips 3×6-8 · Pull-ups 3×6-8 · L-sit 4× max · Core circuit ×3",
-   f:"Halfway. First honest ab check: Thursday AM, flat overhead light, relaxed, not flexed. Photo it. Don't judge it in a gym mirror after a pump." },
- { num:6, dates:"Oct 26–Nov 1", tgt:"151.8",
+   f:"NEW NUMBERS FROM TODAY: 2,100 training / 1,900 Sunday — four flat weigh-ins triggered the rule. Log weekends in full, restaurants included. Add a Thursday waist measurement at the navel. First honest ab check too: Thursday AM, flat overhead light, relaxed, not flexed. Photo it. Don't judge it in a gym mirror after a pump." },
+ { num:6, dates:"Oct 26–Nov 1", tgt:"155.3",
    q:"4 min easy → 2× (10 min @ 5:35 / 2 min easy) → 3 min easy. Race-pace rehearsal. 29 min total.",
    l:"8K easy. First 8K of the block — any pace, just finish it.",
    c:"HS opener · Dips 3×6-8 · Pull-ups 3×6-8 · L-sit 4× max · Core circuit ×3",
    f:"Last week at 2,400. Thursday's number is your Phase 2 starting weight — take it seriously." },
- { num:7, dates:"Nov 2–8", tgt:"151.2", key:true,
+ { num:7, dates:"Nov 2–8", tgt:"154.7", key:true,
    q:"3 min easy → 22 min continuous tempo @ 5:40 → 3 min easy. 28 min total.",
    l:"7K easy. Keep the legs fresh for next week.",
    c:"HS opener · Dips 3×6-8 · Pull-ups 3×6-8 · L-sit 4× max · Core circuit ×3",
    f:"PHASE 2. Calories go UP to 2,500 and the rate slows to 0.5 lb/wk. This is deliberate — the last layer comes off slowest and costs the most muscle. THE GATE OPENS: check it every Thursday from here." },
- { num:8, dates:"Nov 9–15", tgt:"150.7", key:true,
+ { num:8, dates:"Nov 9–15", tgt:"154.2", key:true,
    q:"Easy 20 min shakeout. Nothing hard. 20 min total.",
    l:"8K TIME TRIAL — target sub-45 (5:37/km). Out at 5:45, negative split the back half.",
    c:"HS opener · Dips 3×6-8 · Pull-ups 3×6-8 · L-sit 4× max · Core circuit ×3",
    f:"8K attempt, Wednesday. You'll be the lightest you've ever raced, and lighter is faster — roughly 1% per 1% of bodyweight. Taper into it on the two days that matter: Monday is a shakeout, Tuesday is light, carbs the night before. Thursday onward is a normal week." },
- { num:9, dates:"Nov 16–22", tgt:"150.2",
+ { num:9, dates:"Nov 16–22", tgt:"153.7",
    q:"4 min easy → 5× (3 min @ 5:15 / 90s easy) → 3 min easy. 30 min total.",
    l:"6.5K easy.",
    c:"HS opener · Dips 3×6-8 · Pull-ups 3×6-8 · L-sit 4× max · Core circuit ×3",
    f:"~150 territory. Check the gate Thursday. If it clears, you're done — move to HOLD that week. Do not ride it out just because the calendar says week 10." },
- { num:10, dates:"Nov 23–29", tgt:"149.7",
+ { num:10, dates:"Nov 23–29", tgt:"153.2",
    q:"3 min easy → 22 min tempo → 3 min easy. 28 min total.",
    l:"8K — consolidation, or your re-attempt if week 8 missed. Slightly quicker than week 8's opening pace.",
    c:"HS opener · Dips 3×6-8 · Pull-ups 3×6-8 · L-sit 4× max · Core circuit ×3",
@@ -210,30 +210,30 @@ const WEEKS = [
    q:"4 min easy → 5× (3 min @ 5:15 / 90s easy) → 3 min easy. 30 min total.",
    l:"7K easy.",
    c:"Back to full volume: third set returns on dips and pull-ups. Push the weighted work.",
-   f:"REVERSE: 2,600. The scale goes up 2–3 lb in ten days. It is water and glycogen, exactly like early August. You have seen this movie. Do not react to it." },
+   f:"REVERSE: 2,250. The scale goes up 2–3 lb in ten days. It is water and glycogen, exactly like early August. You have seen this movie. Do not react to it." },
  { num:12, dates:"Dec 7–13", tgt:"152",
    q:"3 min easy → 24 min continuous tempo → 3 min easy. 30 min total.",
    l:"8K steady.",
    c:"Full volume. Test: best L-sit and best weighted dip on film.",
-   f:"2,725 = maintenance, and you hold here. Thursday: final weigh-in and photos in the same light as September. Then the lean-gain block starts — +0.25–0.4 lb/wk, and you stay lean the whole way." },
+   f:"~2,350 = maintenance, and you hold here. Thursday: final weigh-in and photos in the same light as September. Then the lean-gain block starts — +0.25–0.4 lb/wk, and you stay lean the whole way." },
 ];
 
 const LIFTS = {
   mon:{ t:"Upper A", s:"Chest-led · condo gym", i:[
-    ["Incline Bench Press","2×6-8","40 ea"],["Pec Deck","2×8-10","140"],["Cable Lat Raise","2×8-10","5"],
-    ["Weighted Pull-ups","2×6-8","+6"],["Machine Row (elbows flared)","2×6-8","140"],["Face Pulls","2×8-10","12"],
-    ["Incline DB Curl","2×8-10","17.5 ea",1],["Tricep SA Press-down","2×6-8","9"]] },
+    ["Smith Incline Bench Press","2×6-8","40 ea"],["Pec Deck","2×8-10","142.5"],["Cable Lateral Raises","3×8-10","10.5"],
+    ["Pull-ups","1×AMRAP","6 clean"],["Unilateral Lat Pulldown","2×8-10","60+"],["Machine / T-bar Row","2×6-8","165"],
+    ["Rear Delt Fly","2×8-10","97.5"],["W Curls","3×6-8","25"],["Tricep Press-down","3×6-8","52.5"]] },
   tue:{ t:"Posterior + Abs", s:"Tuesday gym · barbell, DB, cable, Smith", i:[
-    ["Barbell RDL","3×6-8","52.5 ea"],["Smith Hip Thrust","2-3×8-10","90 ea"],["Split Squats","2×8-10","50 ea"],
-    ["Abductor OR Adductor (alt wkly)","2×8-10","100/90"],["Cable Crunch — progress this","3×10-12","16+"],
+    ["Barbell RDL","3×6-8","52.5 ea"],["Smith Hip Thrust","2-3×8-10","90 ea"],["Leg Extension — sub for split squats (knee)","2×10-12","moderate"],
+    ["Hip Abductor — every week (knee)","3×10-12","100"],["Cable Crunch — progress this","3×10-12","16+"],
     ["Hanging Leg Raises — clean reps only","2×max","BW"]] },
   thu:{ t:"Upper B", s:"Back-led · shoulder press now BEFORE the fly · SA row lat-biased (elbow tucked, pull to hip)", i:[
     ["Wide Grip Lat Pulldown","3×8-10","120"],["SA Row (lat-biased)","2×10-12","60"],["DB Bench Press","2×6-8","60 ea"],
     ["DB Shoulder Press","2×8-10","35 → hit 2×10, then 40"],["Upper Chest Cable Fly","2×10-12","7"],["Side Lat Raises","2×10-15",""],
     ["Machine Rear Delt Fly","2×12-15",""],["Overhead Tricep Ext","2×6-8","12"],["Rope Hammer Curl","2×6-8","14"]] },
-  fri:{ t:"Hard Legs", s:"Friday gym · tennis in the AM = autoregulate, don't skip", i:[
-    ["Squats","3×4-6","55 ea · 3×5 clean before 60"],["Pendulum Squat","2×8-10","80"],["Leg Curl","2×10-12","115"],
-    ["SL Leg Extension","2×10-15","55 ea"],["Standing Calf Raises","3×10-15","175"],["Woodchoppers / Pallof","2×10-12",""]] },
+  fri:{ t:"Legs — knee-safe", s:"No squats or pendulum until the knee is pain-free · keep everything ≤3/10 · squats return at 50 ea, comfortable depth", i:[
+    ["Leg Extension","3×10-12","moderate, ≤3/10"],["Leg Curl","3×10-12","115"],["Hip Thrust or Glute Bridge","3×8-10","—"],
+    ["Hip Abductor","2×12-15","—"],["Standing Calf Raises","3×10-15","175"],["Woodchoppers / Pallof","2×10-12",""]] },
 };
 
 const CARDIO = {
@@ -270,7 +270,7 @@ const RULES = [
  ["Creatine, 5g, every day.","Cheapest performance insurance there is in a deficit, and the one supplement with real evidence behind it. Timing is irrelevant — just don't miss days."],
  ["Sleep 7h+.","Under-sleeping in a deficit shifts <b>what</b> you lose toward lean mass rather than fat. That's a measured effect, not a wellness line. On a week where sleep collapses, eat at maintenance instead of pushing the deficit."],
  ["Fuel the session; don't fuss over pre-workout protein.","<b>Carbs before an early lift are the part that matters</b> — your ~200 cal is what keeps the top sets alive in a deficit. Protein timing around training is a minor variable next to the daily total; 165g across 3–4 feedings covers it. The one thing worth doing: <b>35–40g within an hour or two of finishing</b>, so the overnight gap doesn't stretch to lunch."],
- ["Four or more days off-plan is a maintenance week.","Not a failure. Eat 2,725, keep lifting, resume the cut after. <b>Never try to make up a deficit</b> — that's how a good block turns into a crash."],
+ ["Four or more days off-plan is a maintenance week.","Not a failure. Eat ~2,300, keep lifting, resume the cut after. <b>Never try to make up a deficit</b> — that's how a good block turns into a crash."],
  ["Photos beat the mirror and the scale.","Thursday AM, same spot, same light, same relaxed pose. At this body fat the mirror lies in both directions depending on the hour, the light and what you ate."],
 ];
 
@@ -367,22 +367,26 @@ function toast(t) {
 
 /* ============================ RENDER ============================ */
 function trendHTML() {
-  const rows = Object.entries(logs).filter(e => e[1] && e[1].weight).sort((a,b) => +a[0] - +b[0]);
+  const rows = Object.entries(logs).filter(e => e[1] && (e[1].weight || e[1].waist)).sort((a,b) => +a[0] - +b[0]);
   if (rows.length < 2) return "";
-  let out = `<div class="trend"><div class="slab">WEIGHT TREND · THU AM</div>`;
-  rows.forEach((r, i) => {
-    let d = "", cls = "";
-    if (i > 0) {
-      const diff = parseFloat(r[1].weight) - parseFloat(rows[i-1][1].weight);
-      if (!isNaN(diff)) {
-        cls = diff > 0 ? "up" : (diff < -1.2 ? "fast" : "dn");
-        d = (diff > 0 ? "+" : "") + diff.toFixed(1);
-      }
-    }
-    out += `<div class="trow mono"><span>WK ${r[0]} · ${WEEKS[r[0]-1] ? WEEKS[r[0]-1].dates : ""}</span>` +
-           `<span>${esc(r[1].weight)} lb <span class="delta ${cls}">${d}</span></span></div>`;
+  const delta = (cur, prev, fastAt, dp) => {
+    const d = parseFloat(cur) - parseFloat(prev);
+    if (isNaN(d)) return "";
+    const cls = d > 0 ? "up" : (fastAt !== null && d < -fastAt ? "fast" : "dn");
+    return `<span class="delta ${cls}">${d > 0 ? "+" : ""}${d.toFixed(dp)}</span>`;
+  };
+  let out = `<div class="trend"><div class="slab">TREND · THU AM</div>` +
+    `<div class="trow mono" style="color:var(--mut)"><span>WEEK</span><span>WEIGHT · WAIST</span></div>`;
+  let lastW = null, lastWa = null;
+  rows.forEach(r => {
+    const v = r[1];
+    const w  = v.weight ? `${esc(v.weight)} lb ${lastW !== null ? delta(v.weight, lastW, 1.2, 1) : ""}` : "—";
+    const wa = v.waist  ? `${esc(v.waist)}" ${lastWa !== null ? delta(v.waist, lastWa, null, 2) : ""}` : "—";
+    if (v.weight) lastW = v.weight;
+    if (v.waist) lastWa = v.waist;
+    out += `<div class="trow mono"><span>WK ${r[0]} · ${WEEKS[r[0]-1] ? WEEKS[r[0]-1].dates : ""}</span><span>${w} · ${wa}</span></div>`;
   });
-  return out + `<div class="note">Red means faster than 1.2 lb — that's a tripwire, add 150 cal/day.</div></div>`;
+  return out + `<div class="note">Red weight = faster than 1.2 lb/wk, a tripwire. Waist dropping while weight holds = losing fat and keeping muscle — that counts.</div></div>`;
 }
 
 function render(scroll) {
@@ -398,15 +402,21 @@ function render(scroll) {
     if (today === "Thu") body += `<div class="card key"><div class="slab">THURSDAY AM WEIGH-IN</div>
       <div class="sub">Wake, bathroom, weigh, before food or water. Same conditions every week. Then the photo.</div>${week.wr ? `<div class="note" style="color:var(--tx2);margin-top:4px">${week.wr}</div>` : ""}
       <input id="w-today" inputmode="decimal" placeholder="Target ~${week.tgt} lb" value="${esc(logs[wk] && logs[wk].weight)}"
-        oninput="setWeek('weight',this.value)" onchange="save()" onblur="save();render(false)"></div>`;
+        oninput="setWeek('weight',this.value)" onchange="save()" onblur="save();render(false)">
+      <div class="sub" style="margin-top:10px">Waist (in) — at the navel, relaxed, breathe out normally</div>
+      <input id="waist-today" inputmode="decimal" placeholder="e.g. 31.5" value="${esc(logs[wk] && logs[wk].waist)}"
+        oninput="setWeek('waist',this.value)" onchange="save()" onblur="save();render(false)"></div>`;
   }
 
   if (tab === "log") {
     body = SESSIONS.map(S => sessionCard(S, week, false)).join("") +
-      `<div class="card key"><div class="slab">THURSDAY AM WEIGH-IN (LB)</div>
+      `<div class="card key"><div class="slab">THURSDAY AM WEIGH-IN</div>
         <div class="sub">Target this week: ~${week.tgt} lb</div>${week.wr ? `<div class="note" style="color:var(--tx2);margin-top:4px">${week.wr}</div>` : ""}
-        <input id="w-log" inputmode="decimal" placeholder="e.g. 154.2" value="${esc(logs[wk] && logs[wk].weight)}"
-          oninput="setWeek('weight',this.value)" onchange="save()" onblur="save();render(false)"></div>`;
+        <input id="w-log" inputmode="decimal" placeholder="Weight, e.g. 154.2 lb" value="${esc(logs[wk] && logs[wk].weight)}"
+          oninput="setWeek('weight',this.value)" onchange="save()" onblur="save();render(false)">
+      <div class="sub" style="margin-top:10px">Waist (in) — at the navel, relaxed, breathe out normally</div>
+      <input id="waist-log" inputmode="decimal" placeholder="e.g. 31.5" value="${esc(logs[wk] && logs[wk].waist)}"
+        oninput="setWeek('waist',this.value)" onchange="save()" onblur="save();render(false)"></div>`;
     if (wk >= 5) {
       const g = (logs[wk] && logs[wk].gate) || "";
       body += `<div class="card key"><div class="slab">THE GATE · ABS CHECK</div>
@@ -417,7 +427,7 @@ function render(scroll) {
           <option value="close"${g==="close"?" selected":""}>Close — top four, lower two soft</option>
           <option value="clear"${g==="clear"?" selected":""}>CLEARED — lower abs + serratus at rest</option>
         </select>
-        ${g==="clear" ? `<div class="note" style="color:var(--a)">Gate cleared. Stop cutting. Go to HOLD next week: 2,600 for seven days, then 2,725. Don't finish the calendar.</div>` : ""}</div>`;
+        ${g==="clear" ? `<div class="note" style="color:var(--a)">Gate cleared. Stop cutting. Go to HOLD next week: 2,250 for seven days, then 2,350. Don't finish the calendar.</div>` : ""}</div>`;
     }
     body += trendHTML() +
       `<button class="btn primary" onclick="exportData()">EXPORT BACKUP — COPY + FILE</button>
@@ -477,7 +487,7 @@ function render(scroll) {
         ${PHASES.map(p => `<div class="liftrow"><span class="n">Phase ${p.id} · ${p.name} <span style="color:var(--dim)">wk ${p.weeks[0]}–${p.weeks[p.weeks.length-1]}</span></span>
           <span class="s mono">${p.cal} / ${p.rest}</span></div>`).join("")}
         <div class="note">Training day / Sunday. Macros this phase: <b style="color:var(--tx2)">${phase.mac}</b>. Target rate: ${phase.rate}.<br>
-        Maintenance is ~2,725 — back-calculated from your own weigh-ins, not a calculator. Phase 1 averages ~2,360 across the week, a ~365/day deficit. Re-measure at week 3: intake + (weekly lb change × 500) = your real number.<br><br>Fat sits at 27% of calories — inside the 15–30% band, with carbs taking the rest. Sunday: P165 · C220 · F64.<br><br>Protein is above 1 g/lb on purpose. Requirement scales with LEAN mass, not bodyweight, and rises in a deficit: 165g = 2.7 g/kg LBM, mid-range of the 2.3–3.1 recommended for lean athletes cutting. It stays 165 all the way down — your lean mass isn't supposed to change, so neither does the number.<br><br>Timing beats totals: put ~150g of the day's carbs in the meal before and the meal after training, and take the rest out of the evening. Same number on the label, fuel where it does work, less food sitting on you at night.</div></div>`;
+        Weeks 1–4 at ~2,300 actual held the scale flat (155.4 → 156.3), so effective maintenance is ~2,300–2,400, well under the ~2,725 the formula and Garmin suggested. Phase 1 is now 2,100 / 1,900, averaging ~2,070 — a 250–300/day deficit. Re-check Oct 29: two more Thursdays plus waist.<br><br>Fat sits at 27% of calories — inside the 15–30% band, with carbs taking the rest. Sunday: P165 · C185 · F56.<br><br>Protein is above 1 g/lb on purpose. Requirement scales with LEAN mass, not bodyweight, and rises in a deficit: 165g = 2.7 g/kg LBM, mid-range of the 2.3–3.1 recommended for lean athletes cutting. It stays 165 all the way down — your lean mass isn't supposed to change, so neither does the number.<br><br>Timing beats totals: put ~150g of the day's carbs in the meal before and the meal after training, and take the rest out of the evening. Same number on the label, fuel where it does work, less food sitting on you at night.</div></div>`;
   }
 
   document.getElementById("app").innerHTML = `

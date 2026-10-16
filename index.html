@@ -90,7 +90,7 @@
              border-bottom:1px solid var(--line); }
   .liftrow:last-child { border-bottom:none; }
   .liftrow .n { color:var(--tx2); }
-  .liftrow .s { font-size:11px; color:var(--a); white-space:nowrap; }
+  .liftrow .s { font-size:11px; color:var(--a); text-align:right; max-width:52%; flex-shrink:0; }
   .liftrow.swap .n::after { content:' NEW'; font-size:8px; letter-spacing:1px; color:var(--a);
              border:1px solid var(--a); border-radius:3px; padding:1px 3px; margin-left:6px; vertical-align:2px; }
 
@@ -223,17 +223,21 @@ const LIFTS = {
     ["Smith Incline Bench Press","2×6-8","40 ea"],["Pec Deck","2×8-10","142.5"],["Cable Lateral Raises","3×8-10","10.5"],
     ["Pull-ups","1×AMRAP","6 clean"],["Unilateral Lat Pulldown","2×8-10","60+"],["Machine / T-bar Row","2×6-8","165"],
     ["Rear Delt Fly","2×8-10","97.5"],["W Curls","3×6-8","25"],["Tricep Press-down","3×6-8","52.5"]] },
-  tue:{ t:"Posterior + Abs", s:"Tuesday gym · barbell, DB, cable, Smith", i:[
-    ["Barbell RDL","3×6-8","52.5 ea"],["Smith Hip Thrust","2-3×8-10","90 ea"],["Leg Extension — sub for split squats (knee)","2×10-12","moderate"],
-    ["Hip Abductor — every week (knee)","3×10-12","100"],["Cable Crunch — progress this","3×10-12","16+"],
-    ["Hanging Leg Raises — clean reps only","2×max","BW"]] },
+  tue:{ t:"Hips + Posterior — moderate day", s:"The knee-friendly day: hinge, glutes, split squats, core · leave 2–3 reps in the tank on everything · physio A before, B after · split squats ≤90°, right side first", i:[
+    ["PREP · Clamshell, banded","2×10 each","3s hold"],["PREP · Prone hip abduction","2×10 each","3s hold"],["PREP · Banded squat, knees pushing out","2×10","3s hold"],
+    ["Barbell RDL","3×6-8","52.5 ea"],["Smith Hip Thrust — squeeze glutes at top","2-3×8-10","90 ea"],
+    ["Split Squats, ≤90°, right first","2×8-10 each","~40 ea, build back"],["Hip Abductor","3×10-12","100"],
+    ["Cable Crunch — progress this","3×10-12","16+"],["Hanging Leg Raises — clean reps only","2×max","BW"],
+    ["AFTER · Physio stretches (block B)","R ×4, L ×2","20s holds"]] },
   thu:{ t:"Upper B", s:"Back-led · shoulder press now BEFORE the fly · SA row lat-biased (elbow tucked, pull to hip)", i:[
     ["Wide Grip Lat Pulldown","3×8-10","120"],["SA Row (lat-biased)","2×10-12","60"],["DB Bench Press","2×6-8","60 ea"],
     ["DB Shoulder Press","2×8-10","35 → hit 2×10, then 40"],["Upper Chest Cable Fly","2×10-12","7"],["Side Lat Raises","2×10-15",""],
     ["Machine Rear Delt Fly","2×12-15",""],["Overhead Tricep Ext","2×6-8","12"],["Rope Hammer Curl","2×6-8","14"]] },
-  fri:{ t:"Legs — knee-safe", s:"No squats or pendulum until the knee is pain-free · keep everything ≤3/10 · squats return at 50 ea, comfortable depth", i:[
-    ["Leg Extension","3×10-12","moderate, ≤3/10"],["Leg Curl","3×10-12","115"],["Hip Thrust or Glute Bridge","3×8-10","—"],
-    ["Hip Abductor","2×12-15","—"],["Standing Calf Raises","3×10-15","175"],["Woodchoppers / Pallof","2×10-12",""]] },
+  fri:{ t:"Hard Legs — the one hard day", s:"Push here, not Tuesday · physio block A before, B after · ≤90° on every squat pattern · knees out, weight even (feel the right foot), stand tall, squeeze glutes · ≤3/10", i:[
+    ["PREP · Clamshell, banded","2×10 each","3s hold"],["PREP · Balance, standing, cycling other leg","2×20 each","right stance first"],["PREP · Banded squat, knees pushing out","2×10","3s hold"],
+    ["Squats to a bench at 90°","3×4-6","50 ea"],["Reverse Lunge, right first — replaces pendulum","2×8 each","DBs"],
+    ["Leg Curl + Leg Extension (superset)","2×10-12 each","140 / pain-free"],["Standing Calf Raises","3×10-15","175"],["Woodchoppers / Pallof press","2×10-12 each side","—"],
+    ["AFTER · Physio stretches (block B)","R ×4, L ×2","20s holds"]] },
 };
 
 const CARDIO = {
@@ -460,6 +464,23 @@ function render(scroll) {
         <div class="dbody"><div class="sub" style="padding:7px 0">Skills first, while fresh · switch weeks above to scout ahead</div>${
           week.c.split(" · ").map(x => `<div class="liftrow"><span class="n">${x}</span></div>`).join("")
         }</div></details>
+      <div class="card key"><div class="slab">PHYSIO PROGRAM — HIPS & KNEE · SPLIT, NOT DAILY</div>
+        <div class="sub">Short IT band and inward knee rotation on the right; weight shifting left. Review ~Oct 30.</div>
+        <div class="sub" style="margin-top:8px;color:var(--a)">A · ACTIVATION — before Tue &amp; Fri legs (~8 min)</div>
+        <div class="liftrow"><span class="n">Clamshell, banded</span><span class="s mono">2×10 each · 3s</span></div>
+        <div class="liftrow"><span class="n">Prone hip abduction (Tue)</span><span class="s mono">2×10 each · 3s</span></div>
+        <div class="liftrow"><span class="n">Balance, standing, cycling leg (Fri)</span><span class="s mono">2×20 each</span></div>
+        <div class="liftrow"><span class="n">Squat with band, knees pushing out</span><span class="s mono">2×10 · 3s</span></div>
+        <div class="sub" style="margin-top:10px;color:var(--a)">B · STRETCHES — after legs AND after Mon/Wed runs (~7 min)</div>
+        <div class="liftrow"><span class="n">Standing side-bend, legs crossed, arm overhead (IT band)</span><span class="s mono">R ×4 · L ×2 · 20s</span></div>
+        <div class="liftrow"><span class="n">Hip flexor stretch, block</span><span class="s mono">R ×4 · L ×2 · 20s</span></div>
+        <div class="liftrow"><span class="n">Figure-4, lying</span><span class="s mono">R ×4 · L ×2 · 20s</span></div>
+        <div class="liftrow"><span class="n">Cross-body piriformis, lying</span><span class="s mono">R ×4 · L ×2 · 20s</span></div>
+        <div class="sub" style="margin-top:10px;color:var(--a)">C · HOME — Sunday, optional (~10 min)</div>
+        <div class="liftrow"><span class="n">Supine banded leg press</span><span class="s mono">2×10 each · 3s</span></div>
+        <div class="liftrow"><span class="n">Clamshell + prone abduction</span><span class="s mono">2×10 each · 3s</span></div>
+        <div class="liftrow"><span class="n">Block B stretches</span><span class="s mono">as above</span></div>
+        <div class="note">Everything she prescribed gets done 3–5×/week, never more than ~10 min at a time. Right side gets the extra stretch reps because that's the tight side.</div></div>
       <div class="card"><div class="slab">CORE CIRCUIT — THE ×3</div>
         <div class="liftrow"><span class="n">Med ball overhead crunch</span><span class="s mono">12–15</span></div>
         <div class="liftrow"><span class="n">Reverse crunch</span><span class="s mono">12–15</span></div>

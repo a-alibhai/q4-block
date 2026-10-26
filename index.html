@@ -149,7 +149,8 @@ const START = new Date(2026, 8, 21);           // Mon Sep 21 2026
 const KEY   = "axq4block_v1";
 
 const PHASES = [
-  { id:1, name:"CUT",    weeks:[1,2,3,4,5,6],  cal:"2,100", rest:"1,900", mac:"P165 · C220 · F62", rate:"0.5–0.7 lb/wk" },
+  { id:1, name:"CUT",    weeks:[1,2,3,4],      cal:"2,400", rest:"2,125", mac:"P165 · C273 · F72", rate:"weeks 1–4 · scale held flat" },
+  { id:1, name:"CUT",    weeks:[5,6],          cal:"2,100", rest:"1,900", mac:"P165 · C220 · F62", rate:"0.5–0.7 lb/wk" },
   { id:2, name:"FINISH", weeks:[7,8,9,10],     cal:"2,200", rest:"2,000", mac:"P165 · C240 · F65", rate:"0.5 lb/wk" },
   { id:3, name:"HOLD",   weeks:[11,12],        cal:"2,250→2,350", rest:"same", mac:"P170 · C265 · F68", rate:"flat" },
 ];
@@ -185,12 +186,12 @@ const WEEKS = [
    q:"4 min easy → 2× (10 min @ 5:35 / 2 min easy) → 3 min easy. Race-pace rehearsal. 29 min total.",
    l:"8K easy. First 8K of the block — any pace, just finish it.",
    c:"HS opener · Dips 3×6-8 · Pull-ups 3×6-8 · L-sit 4× max · Core circuit ×3",
-   f:"Last week at 2,400. Thursday's number is your Phase 2 starting weight — take it seriously." },
+   f:"Last week at 2,100. Thursday's number is your Phase 2 starting weight — take it seriously." },
  { num:7, dates:"Nov 2–8", tgt:"154.7", key:true,
    q:"3 min easy → 22 min continuous tempo @ 5:40 → 3 min easy. 28 min total.",
    l:"7K easy. Keep the legs fresh for next week.",
    c:"HS opener · Dips 3×6-8 · Pull-ups 3×6-8 · L-sit 4× max · Core circuit ×3",
-   f:"PHASE 2. Calories go UP to 2,500 and the rate slows to 0.5 lb/wk. This is deliberate — the last layer comes off slowest and costs the most muscle. THE GATE OPENS: check it every Thursday from here." },
+   f:"PHASE 2. Calories go UP to 2,200 and the rate slows to 0.5 lb/wk. This is deliberate — the last layer comes off slowest and costs the most muscle. THE GATE OPENS: check it every Thursday from here." },
  { num:8, dates:"Nov 9–15", tgt:"154.2", key:true,
    q:"Easy 20 min shakeout. Nothing hard. 20 min total.",
    l:"8K TIME TRIAL — target sub-45 (5:37/km). Out at 5:45, negative split the back half.",
@@ -225,27 +226,27 @@ const LIFTS = {
     ["Rear Delt Fly","2×8-10","97.5"],["W Curls","3×6-8","25"],["Tricep Press-down","3×6-8","52.5"]] },
   tue:{ t:"Hips + Posterior — moderate day", s:"The knee-friendly day: hinge, glutes, split squats, core · leave 2–3 reps in the tank on everything · physio A before, B after · split squats ≤90°, right side first", i:[
     ["PREP · Clamshell, banded","2×10 each","3s hold"],["PREP · Prone hip abduction","2×10 each","3s hold"],["PREP · Banded squat, knees pushing out","2×10","3s hold"],
-    ["Barbell RDL","3×6-8","52.5 ea"],["Smith Hip Thrust — squeeze glutes at top","2-3×8-10","90 ea"],
-    ["Split Squats, ≤90°, right first","2×8-10 each","~40 ea, build back"],["Hip Abductor","3×10-12","100"],
+    ["Barbell RDL","3×6-8","52.5 ea"],["Smith Hip Thrust — squeeze glutes at top","2-3×8-10","90 ea, moderate until Oct 30"],
+    ["Split Squats, ≤90°, right first","2×8-10 each","35 ea, build back"],["Hip Abductor","3×10-12","100"],
     ["Cable Crunch — progress this","3×10-12","16+"],["Hanging Leg Raises — clean reps only","2×max","BW"],
     ["AFTER · Physio stretches (block B)","R ×4, L ×2","20s holds"]] },
   thu:{ t:"Upper B", s:"Back-led · shoulder press now BEFORE the fly · SA row lat-biased (elbow tucked, pull to hip)", i:[
     ["Wide Grip Lat Pulldown","3×8-10","120"],["SA Row (lat-biased)","2×10-12","60"],["DB Bench Press","2×6-8","60 ea"],
-    ["DB Shoulder Press","2×8-10","35 → hit 2×10, then 40"],["Upper Chest Cable Fly","2×10-12","7"],["Side Lat Raises","2×10-15",""],
-    ["Machine Rear Delt Fly","2×12-15",""],["Overhead Tricep Ext","2×6-8","12"],["Rope Hammer Curl","2×6-8","14"]] },
-  fri:{ t:"Hard Legs — the one hard day", s:"Push here, not Tuesday · physio block A before, B after · ≤90° on every squat pattern · knees out, weight even (feel the right foot), stand tall, squeeze glutes · ≤3/10", i:[
+    ["DB Shoulder Press","2×8-10","40 → hit 2×10, then 45"],["Upper Chest Cable Fly","2×10-12","7"],["Side Lat Raises","2×10-15",""],
+    ["Machine Rear Delt Fly","2×12-15",""],["Overhead Tricep Ext — or seated DB / incline skull crusher","2×6-8","12"],["Rope Hammer Curl","2×6-8","14"]] },
+  fri:{ t:"Hard Legs — reduced load until physio clears (Oct 30)", s:"Same session, lighter weights · stop the set if the knee passes 3/10 · physio block A before, B after · ≤90° on every squat pattern · knees out, weight even (feel the right foot), stand tall, squeeze glutes · ≤3/10", i:[
     ["PREP · Clamshell, banded","2×10 each","3s hold"],["PREP · Balance, standing, cycling other leg","2×20 each","right stance first"],["PREP · Banded squat, knees pushing out","2×10","3s hold"],
-    ["Squats to a bench at 90°","3×4-6","50 ea"],["Reverse Lunge, right first — replaces pendulum","2×8 each","DBs"],
-    ["Leg Curl + Leg Extension (superset)","2×10-12 each","140 / pain-free"],["Standing Calf Raises","3×10-15","175"],["Woodchoppers / Pallof press","2×10-12 each side","—"],
+    ["Squats to a bench at 90°","3×5-8","30–35 ea (normal: 50)"],["Reverse Lunge, right first","2×8-10 each","barbell, light"],
+    ["Leg Curl — pad just above the heels","2×10-12","100–115 (normal: 140)"],["Leg Extension","2×10-15","light, pain-free"],["Standing Calf Raises","3×10-15","175"],["Woodchoppers / Pallof press","2×10-12 each side","—"],["Wall sit, shallow (~30–45°)","2-3×30-45s","isometric, knee-calming"],
     ["AFTER · Physio stretches (block B)","R ×4, L ×2","20s holds"]] },
 };
 
 const CARDIO = {
   tueW:"Incline walk, 20–25 min. Cap it there — this is digestion and steps, not a fat-loss tool.",
-  thuB:"Bike commute, 15 min each way. That's your third cardio session; no separate run needed.",
+  thuB:"Bike commute, 15 min each way. That's your third cardio session; no separate run needed. Once it's too cold to bike: 20–30 min incline walk after Upper B instead.",
   friX:"Tennis 60 min, or 45 min incline walk. One or the other, never both.",
   satX:"Tennis 60–90 min, or 45–60 min incline walk.",
-  sunW:"Walk 30–60 min outside, fasted or fed — it makes no difference. Then genuinely rest: no 'easy' session that turns into a session.",
+  sunW:"Walk 30–60 min outside, fasted or fed — it makes no difference. Then genuinely rest: no 'easy' session that turns into a session. Heading for 12k+ steps? Eat 2,100, not 1,900.",
 };
 
 const SESSIONS = [
@@ -302,8 +303,8 @@ function gateWeek() {
 }
 function phaseFor(n) {                       // gate cleared -> HOLD from the following week
   var g = gateWeek();
-  if (g && n > g) return PHASES[2];
-  return PHASES.find(function(p){ return p.weeks.includes(n); }) || PHASES[2];
+  if (g && n > g) return PHASES[PHASES.length-1];
+  return PHASES.find(function(p){ return p.weeks.includes(n); }) || PHASES[PHASES.length-1];
 }
 function currentWeek() {
   const d = Math.floor((Date.now() - START.getTime()) / 6048e5);
@@ -450,7 +451,7 @@ function render(scroll) {
         <div class="liftrow"><span class="n">Sat tennis <em>or</em> incline</span><span class="s mono">60–90 / 45–60 min</span></div>
         <div class="liftrow"><span class="n">Sun walk</span><span class="s mono">30–60 min</span></div></div>
       <div class="card"><div class="slab">8K TARGET · SUB-45</div>
-        <div class="plan" style="color:var(--tx2)">45:00 over 8K is <b>5:37/km</b>. Your last logged 6K was 5:46/km, so the gap is nine seconds a kilometre — and you'll be five pounds lighter by the attempt. Time trial is week 8, re-run week 10 if you miss it.</div></div>
+        <div class="plan" style="color:var(--tx2)">45:00 over 8K is <b>5:37/km</b>. Your 7.7K easy run on Oct 21 was 5:46/km and you said you could've done more — so the gap is nine seconds a kilometre, at race effort instead of easy. Time trial is week 8, re-run week 10 if you miss it.</div></div>
       <div class="note">If the week collapses, drop Monday's quality run. Never Wednesday.</div>`;
   }
 
@@ -473,7 +474,7 @@ function render(scroll) {
         <div class="liftrow"><span class="n">Squat with band, knees pushing out</span><span class="s mono">2×10 · 3s</span></div>
         <div class="sub" style="margin-top:10px;color:var(--a)">B · STRETCHES — after legs AND after Mon/Wed runs (~7 min)</div>
         <div class="liftrow"><span class="n">Standing side-bend, legs crossed, arm overhead (IT band)</span><span class="s mono">R ×4 · L ×2 · 20s</span></div>
-        <div class="liftrow"><span class="n">Hip flexor stretch, block</span><span class="s mono">R ×4 · L ×2 · 20s</span></div>
+        <div class="liftrow"><span class="n">Hip flexor stretch, block — tuck pelvis under, squeeze back-leg glute, then lean; reach same-side arm up</span><span class="s mono">R ×4 · L ×2 · 20s</span></div>
         <div class="liftrow"><span class="n">Figure-4, lying</span><span class="s mono">R ×4 · L ×2 · 20s</span></div>
         <div class="liftrow"><span class="n">Cross-body piriformis, lying</span><span class="s mono">R ×4 · L ×2 · 20s</span></div>
         <div class="sub" style="margin-top:10px;color:var(--a)">C · HOME — Sunday, optional (~10 min)</div>
@@ -487,9 +488,8 @@ function render(scroll) {
         <div class="liftrow"><span class="n">Russian twist, med ball</span><span class="s mono">10–12 ea</span></div>
         <div class="liftrow"><span class="n">Dead bug</span><span class="s mono">30s</span></div>
         <div class="note">45s between rounds. The dead bugs feed the L-sit — don't rush them.</div></div>
-      <div class="card"><div class="slab">TWO CHANGES FROM Q3</div>
-        <div class="plan" style="color:var(--tx2)"><b>Incline DB curl</b> replaces the EZ preacher you lost. Same job — it loads the biceps hardest in the stretch — and it only needs an incline bench. Bayesian cable curl works too if the bench is taken.<br><br>
-        <b>Handstand is a 10-minute opener, not a session.</b> Wall only, while fresh, and it's optional. Once a week won't build a freestanding handstand and you said that's fine — aesthetics is the goal here. The core stability you actually wanted is already coming from cable crunches, hanging leg raises, woodchops and the L-sit. If you ever do want the handstand for real, one session with a coach will do more than three months of solo attempts.</div></div>`;
+      <div class="card"><div class="slab">HANDSTAND</div>
+        <div class="plan" style="color:var(--tx2)"><b>Handstand is a 10-minute opener, not a session.</b> Wall only, while fresh, and it's optional. Once a week won't build a freestanding handstand and you said that's fine — aesthetics is the goal here. The core stability you actually wanted is already coming from cable crunches, hanging leg raises, woodchops and the L-sit. If you ever do want the handstand for real, one session with a coach will do more than three months of solo attempts.</div></div>`;
   }
 
   if (tab === "rules") {

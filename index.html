@@ -91,7 +91,8 @@
   .liftrow:last-child { border-bottom:none; }
   .liftrow .n { color:var(--tx2); }
   .liftrow .s { font-size:11px; color:var(--a); text-align:right; max-width:52%; flex-shrink:0; }
-  .liftrow.swap .n::after { content:' NEW'; font-size:8px; letter-spacing:1px; color:var(--a);
+  .liftrow .alt { display:block; font-size:11px; color:var(--mut); margin-top:2px; }
+  .liftrow.swap .n::after { content:'NEW'; display:inline-block; white-space:nowrap; font-size:8px; letter-spacing:1px; color:var(--a);
              border:1px solid var(--a); border-radius:3px; padding:1px 3px; margin-left:6px; vertical-align:2px; }
 
   details { margin-bottom:9px; }
@@ -148,12 +149,23 @@ const BLOCK = "Q4 Sep21-Dec13 2026";
 const START = new Date(2026, 8, 21);           // Mon Sep 21 2026
 const KEY   = "axq4block_v1";
 
+/* Phases run by DATE, not week: California starts on a Tuesday and ends on a Thursday.
+   from = first day, to = the day after the last day. */
+const D = (m, d, y) => new Date(y || 2026, m - 1, d);
 const PHASES = [
-  { id:1, name:"CUT",    weeks:[1,2,3,4],      cal:"2,400", rest:"2,125", mac:"P165 · C273 · F72", rate:"weeks 1–4 · scale held flat" },
-  { id:1, name:"CUT",    weeks:[5,6],          cal:"2,100", rest:"1,900", mac:"P165 · C220 · F62", rate:"0.5–0.7 lb/wk" },
-  { id:2, name:"FINISH", weeks:[7,8,9,10],     cal:"2,200", rest:"2,000", mac:"P165 · C240 · F65", rate:"0.5 lb/wk" },
-  { id:3, name:"HOLD",   weeks:[11,12],        cal:"2,250→2,350", rest:"same", mac:"P170 · C265 · F68", rate:"flat" },
+  { id:1, name:"CUT",          from:D(9,21),  to:D(10,19), span:"Sep 21–Oct 18", cal:"2,400", rest:"2,125", mac:"P165 · C273 · F72", rate:"scale held flat" },
+  { id:1, name:"CUT",          from:D(10,19), to:D(11,24), span:"Oct 19–Nov 23", cal:"2,100", rest:"1,900", mac:"P165 · C220 · F62", rate:"~0.7 lb/wk" },
+  { id:2, name:"TRAVEL BREAK", from:D(11,24), to:D(12,4),  span:"Nov 24–Dec 3 · California", fixed:true, teal:true,
+    l1:"NORMAL DAY", cal:"~2,200", l2:"15K+ STEPS", rest:"≤2,400", mac:"P150+ · rest loose", rate:"+2–4 lb water", map:"~2,200 · ≤2,400 big walk days" },
+  { id:3, name:"CUT",          from:D(12,4),  to:D(12,17), span:"Dec 4–16", cal:"2,100", rest:"1,900", mac:"P165 · C220 · F62", rate:"water first, then ~0.7 lb/wk" },
+  { id:4, name:"FLORIDA",      from:D(12,17), to:D(1,6,2027), span:"Dec 17–Jan 5", fixed:true, teal:true,
+    l1:"MOST DAYS", cal:"~2,300", l2:"PROTEIN", rest:"150+", mac:"~1 session a day", rate:"guardrail: +3 lb", map:"~2,300 · +3 lb guardrail" },
 ];
+const HOLD = { id:null, name:"HOLD", span:"from the week after the gate clears", teal:true,
+  cal:"2,250→2,350", rest:"same", mac:"P170 · C265 · F68", rate:"flat" };
+const NEXT = { id:null, name:"NEXT BLOCK", span:"January", cal:"—", rest:"—", mac:"January cut · new plan", rate:"send the backup" };
+const TRIP_FROM = D(11,24), TRIP_TO = D(12,4), FLA_FROM = D(12,17);
+const onTrip = d => d >= TRIP_FROM && d < TRIP_TO;
 
 const WEEKS = [
  { num:1, dates:"Sep 21–27", tgt:"155.5",
@@ -184,61 +196,64 @@ const WEEKS = [
    f:"NEW NUMBERS FROM TODAY: 2,100 training / 1,900 Sunday — four flat weigh-ins triggered the rule. Log weekends in full, restaurants included. Add a Thursday waist measurement at the navel. First honest ab check too: Thursday AM, flat overhead light, relaxed, not flexed. Photo it. Don't judge it in a gym mirror after a pump." },
  { num:6, dates:"Oct 26–Nov 1", tgt:"155.3",
    q:"4 min easy → 2× (10 min @ 5:35 / 2 min easy) → 3 min easy. Race-pace rehearsal. 29 min total.",
-   l:"8K easy. First 8K of the block — any pace, just finish it.",
+   l:"8K — done: 44:43 on Oct 28, sub-45 two weeks early ✓",
    c:"HS opener · Dips 3×6-8 · Pull-ups 3×6-8 · L-sit 4× max · Core circuit ×3",
-   f:"Last week at 2,100. Thursday's number is your Phase 2 starting weight — take it seriously." },
- { num:7, dates:"Nov 2–8", tgt:"154.7", key:true,
+   f:"The cut stays at 2,100 / 1,900 and now runs straight to Mon Nov 23, then California. Thursday: 154.0 and 30.3\". The two-week rate is 1.15 lb/wk, just under the tripwire; over three weeks it's 0.6. Physio Oct 30: getting better. The new program is in the Lifts tab, and Friday loads start stepping back up (squats 40, leg curl 120)." },
+ { num:7, dates:"Nov 2–8", tgt:"153.3", key:true,
    q:"3 min easy → 22 min continuous tempo @ 5:40 → 3 min easy. 28 min total.",
-   l:"7K easy. Keep the legs fresh for next week.",
+   l:"8K easy, conversational: about 6:00/km, ~48 min. A recovery run after the time trial, not a second attempt. Don't check your pace.",
    c:"HS opener · Dips 3×6-8 · Pull-ups 3×6-8 · L-sit 4× max · Core circuit ×3",
-   f:"PHASE 2. Calories go UP to 2,200 and the rate slows to 0.5 lb/wk. This is deliberate — the last layer comes off slowest and costs the most muscle. THE GATE OPENS: check it every Thursday from here." },
- { num:8, dates:"Nov 9–15", tgt:"154.2", key:true,
-   q:"Easy 20 min shakeout. Nothing hard. 20 min total.",
-   l:"8K TIME TRIAL — target sub-45 (5:37/km). Out at 5:45, negative split the back half.",
+   f:"THE GATE OPENS: check it every Thursday from here, with all four photos. No bump to 2,200: the cut holds at 2,100 / 1,900 until Mon Nov 23. Three Thursdays before California (Nov 5, 12, 19). ~0.7 lb/wk is the honest pace, which lands around 152. The photos decide, not the scale. Wednesday is an easy 8K." },
+ { num:8, dates:"Nov 9–15", tgt:"152.6", key:true,
+   q:"4 min easy → 4× (4 min @ 5:25 / 90s easy) → 3 min easy. 29 min total.",
+   l:"9K easy, conversational. Step two of three toward the 10K. If the knee goes past 3/10, cut it short.",
    c:"HS opener · Dips 3×6-8 · Pull-ups 3×6-8 · L-sit 4× max · Core circuit ×3",
-   f:"8K attempt, Wednesday. You'll be the lightest you've ever raced, and lighter is faster — roughly 1% per 1% of bodyweight. Taper into it on the two days that matter: Monday is a shakeout, Tuesday is light, carbs the night before. Thursday onward is a normal week." },
- { num:9, dates:"Nov 16–22", tgt:"153.7",
-   q:"4 min easy → 5× (3 min @ 5:15 / 90s easy) → 3 min easy. 30 min total.",
-   l:"6.5K easy.",
+   f:"Running goal: an easy 10K by Wed Nov 18, built 8K → 9K → 10K. Distance, not pace: every Wednesday stays conversational. Monday is back to normal intervals, controlled. Friday squats reach 50 this week if the knee has stayed at 3/10 or under." },
+ { num:9, dates:"Nov 16–22", tgt:"151.9", key:true,
+   q:"4 min easy → 5× (3 min @ 5:25–5:30, controlled / 90s easy) → 3 min easy. 30 min total.",
+   l:"GOAL RUN: 10K easy, conversational, ~5:50–6:15/km, about an hour. No pace target; finishing it relaxed is the win. Carbs at Tuesday dinner, ~300 cal 60–90 min before. Nothing needed during. Knee past 3/10 → stop at 8K.",
    c:"HS opener · Dips 3×6-8 · Pull-ups 3×6-8 · L-sit 4× max · Core circuit ×3",
-   f:"~150 territory. Check the gate Thursday. If it clears, you're done — move to HOLD that week. Do not ride it out just because the calendar says week 10." },
- { num:10, dates:"Nov 23–29", tgt:"153.2",
-   q:"3 min easy → 22 min tempo → 3 min easy. 28 min total.",
-   l:"8K — consolidation, or your re-attempt if week 8 missed. Slightly quicker than week 8's opening pace.",
-   c:"HS opener · Dips 3×6-8 · Pull-ups 3×6-8 · L-sit 4× max · Core circuit ×3",
-   f:"Last scheduled cut week. If the gate still hasn't cleared, move to HOLD anyway — the answer at 149 is more muscle, not less food. That's next block's job." },
- { num:11, dates:"Nov 30–Dec 6", tgt:"151",
-   q:"4 min easy → 5× (3 min @ 5:15 / 90s easy) → 3 min easy. 30 min total.",
-   l:"7K easy.",
-   c:"Back to full volume: third set returns on dips and pull-ups. Push the weighted work.",
-   f:"REVERSE: 2,250. The scale goes up 2–3 lb in ten days. It is water and glycogen, exactly like early August. You have seen this movie. Do not react to it." },
- { num:12, dates:"Dec 7–13", tgt:"152",
-   q:"3 min easy → 24 min continuous tempo → 3 min easy. 30 min total.",
-   l:"8K steady.",
+   f:"Last full cut week. Thursday Nov 19 is the pre-trip check: weigh-in, waist, all four photos. Gate cleared → eat ~2,300 until you fly, California runs as planned, and Dec 4–16 becomes HOLD instead of a cut. Not cleared → nothing changes and nothing gets forced. No crash in the last four days; the cut picks up again Dec 4. Pack the loop band." },
+ { num:10, dates:"Nov 23–29", tgt:null, key:true, trip:true, home:["monU","monQ"], homeFirst:true,
+   ql:"MON NOV 23 · HOME", ll:"CALIFORNIA · EASY RUNS",
+   q:"20 min easy, or skip it if packing wins. Upper A still happens: it's the last session before the trip.",
+   l:"1 easy run between Nov 25 and 30 (2 if it fits), 25–40 min, conversational. Pasadena: the Rose Bowl loop (5K, mostly flat). San Diego: the boardwalk or the Mission Bay paths. San Francisco: keep it flat, like the Embarcadero or Crissy Field. Long downhills load the kneecap more.",
+   c:"Travel: the California program replaces calisthenics (Lifts tab) · The core circuit is in Session B",
+   f:"CALIFORNIA, Tue Nov 24 to Thu Dec 3: San Diego, LA, San Francisco. Monday is still 2,100. From Tuesday it's a diet break: ~2,200, up to 2,350–2,400 on 15k+ step days, protein 150+ before anything else. Expect +2–4 lb within 3–4 days from glycogen, water, salt and food in transit. It isn't fat. No weigh-ins on the road. Nothing on travel day; train 3–4 times between Nov 25 and 30 (plus Dec 3 before the flight) with the travel program, alternating A and B, plus an easy run if it fits. The trip doubles as your deload." },
+ { num:11, dates:"Nov 30–Dec 6", tgt:null, trip:true, home:["friX","friL","satX","satC","sunW"],
+   ql:"CALIFORNIA", ll:"DEC 1–2 OFF · THEN HOME",
+   q:"No quality run this week. Mon Nov 30: a session or an easy run, not both. Thu Dec 3 before the flight: Session A (upper), so Friday legs isn't back-to-back with Session B.",
+   l:"Dec 1–2: off, walking only. Home: easy 6K on Sunday Dec 6, after Saturday's physio.",
+   c:"Physio Sat AM — do this after, or Sunday · Dips 3×6-8 at pre-trip weight · Pull-ups 3×6-8 at pre-trip weight · L-sit 4× max · Core circuit ×3",
+   f:"Home Thursday Dec 3. Fri Dec 4: back to 2,100 / 1,900, and Friday legs at pre-trip weights minus the last set. Sat Dec 5: physio follow-up. Tell them how the knee handled the trip, and ask about going back to full Friday loads. The scale will read 2–4 lb high for a few days; it means nothing until Thursday Dec 10." },
+ { num:12, dates:"Dec 7–13", tgt:"≤152",
+   q:"4 min easy → 5× (3 min @ 5:25–5:30, controlled / 90s easy) → 3 min easy. 30 min total. First intervals since the trip: if it feels flat, ease off.",
+   l:"8K easy, long and slow. Go further only if you feel like it.",
    c:"Full volume. Test: best L-sit and best weighted dip on film.",
-   f:"~2,350 = maintenance, and you hold here. Thursday: final weigh-in and photos in the same light as September. Then the lean-gain block starts — +0.25–0.4 lb/wk, and you stay lean the whole way." },
+   f:"Last block week, still 2,100 / 1,900 (HOLD if the gate cleared). The cut runs to Wed Dec 16, three days past the block. Thursday Dec 10 is the real post-trip weigh-in: waist and all four photos, same spot and light as September. Export the backup Sunday and send it; that's the block review. Florida Dec 17–Jan 5: ~2,300, about one session a day, protein 150+, weigh Thursdays. New cut in January." },
 ];
 
 const LIFTS = {
-  mon:{ t:"Upper A", s:"Chest-led · condo gym", i:[
+  mon:{ t:"Upper A", s:"Chest-led · condo gym · fuel it: Sunday dinner is the carb meal, ~300 cal of carbs before · physio block C after the run", i:[
     ["Smith Incline Bench Press","2×6-8","40 ea"],["Pec Deck","2×8-10","142.5"],["Cable Lateral Raises","3×8-10","10.5"],
     ["Pull-ups","1×AMRAP","6 clean"],["Unilateral Lat Pulldown","2×8-10","60+"],["Machine / T-bar Row","2×6-8","165"],
     ["Rear Delt Fly","2×8-10","97.5"],["W Curls","3×6-8","25"],["Tricep Press-down","3×6-8","52.5"]] },
   tue:{ t:"Hips + Posterior — moderate day", s:"The knee-friendly day: hinge, glutes, split squats, core · leave 2–3 reps in the tank on everything · physio A before, B after · split squats ≤90°, right side first", i:[
-    ["PREP · Clamshell, banded","2×10 each","3s hold"],["PREP · Prone hip abduction","2×10 each","3s hold"],["PREP · Banded squat, knees pushing out","2×10","3s hold"],
-    ["Barbell RDL","3×6-8","52.5 ea"],["Smith Hip Thrust — squeeze glutes at top","2-3×8-10","90 ea, moderate until Oct 30"],
+    ["PREP · Clamshell, banded","2×10 each","3s hold"],["PREP · Prone hip abduction","2×10 each","3s hold"],["PREP · Band side walk, legs straight","2×10 steps each way","",1],["PREP · Banded squat, knees pushing out","2×10","3s hold"],
+    ["Barbell RDL","3×6-8","52.5 ea"],["Smith Hip Thrust — squeeze glutes at top","2-3×8-10","90 ea · progress: reps, then weight"],
     ["Split Squats, ≤90°, right first","2×8-10 each","35 ea, build back"],["Hip Abductor","3×10-12","100"],
     ["Cable Crunch — progress this","3×10-12","16+"],["Hanging Leg Raises — clean reps only","2×max","BW"],
-    ["AFTER · Physio stretches (block B)","R ×4, L ×2","20s holds"]] },
-  thu:{ t:"Upper B", s:"Back-led · shoulder press now BEFORE the fly · SA row lat-biased (elbow tucked, pull to hip)", i:[
+    ["AFTER · Physio block B — IT band + quads","R ×4, L ×2","20s holds"]] },
+  thu:{ t:"Upper B", s:"Back-led · shoulder press now BEFORE the fly · SA row lat-biased (elbow tucked, pull to hip) · physio block C after", i:[
     ["Wide Grip Lat Pulldown","3×8-10","120"],["SA Row (lat-biased)","2×10-12","60"],["DB Bench Press","2×6-8","60 ea"],
     ["DB Shoulder Press","2×8-10","40 → hit 2×10, then 45"],["Upper Chest Cable Fly","2×10-12","7"],["Side Lat Raises","2×10-15",""],
-    ["Machine Rear Delt Fly","2×12-15",""],["Overhead Tricep Ext — or seated DB / incline skull crusher","2×6-8","12"],["Rope Hammer Curl","2×6-8","14"]] },
-  fri:{ t:"Hard Legs — reduced load until physio clears (Oct 30)", s:"Same session, lighter weights · stop the set if the knee passes 3/10 · physio block A before, B after · ≤90° on every squat pattern · knees out, weight even (feel the right foot), stand tall, squeeze glutes · ≤3/10", i:[
-    ["PREP · Clamshell, banded","2×10 each","3s hold"],["PREP · Balance, standing, cycling other leg","2×20 each","right stance first"],["PREP · Banded squat, knees pushing out","2×10","3s hold"],
-    ["Squats to a bench at 90°","3×5-8","30–35 ea (normal: 50)"],["Reverse Lunge, right first","2×8-10 each","barbell, light"],
-    ["Leg Curl — pad just above the heels","2×10-12","100–115 (normal: 140)"],["Leg Extension","2×10-15","light, pain-free"],["Standing Calf Raises","3×10-15","175"],["Woodchoppers / Pallof press","2×10-12 each side","—"],["Wall sit, shallow (~30–45°)","2-3×30-45s","isometric, knee-calming"],
-    ["AFTER · Physio stretches (block B)","R ×4, L ×2","20s holds"]] },
+    ["Machine Rear Delt Fly","2×12-15",""],["Overhead Tricep Ext — or seated DB / incline skull crusher","2×6-8","12"],["Rope Hammer Curl","2×6-8","14"],
+    ["AFTER · Physio block C — hips + glutes","R ×4, L ×2","20s holds"]] },
+  fri:{ t:"Hard Legs — building back to full load", s:"Step the weight up only while the knee stays ≤3/10 and has settled by the next morning; if not, repeat last week's · physio block A before, B after · ≤90° on every squat pattern · knees out, weight even (feel the right foot), stand tall, squeeze glutes", i:[
+    ["PREP · Balance, standing, cycling other leg","2×20 each","right stance first"],["PREP · Diagonal hip extension, banded","2×10 each","",1],["PREP · Side-step shuffle + mini squat, 2 cones","2×10","",1],["PREP · Banded squat, knees pushing out","2×10","3s hold"],
+    ["Squats to a bench at 90°","3×5-8","40 ea Oct 30 → +5/wk → 50"],["Reverse Lunge, right first","2×8-10 each","barbell, build"],
+    ["Leg Curl — pad just above the heels","2×10-12","120 → +10 after 2 pain-free sessions → 140"],["Leg Extension","2×10-15","light, pain-free"],["Standing Calf Raises","3×10-15","195"],["Oblique machine — or woodchoppers / Pallof","2×10-12 each side","—"],["Wall sit, shallow (~30–45°)","2-3×30-45s","isometric, knee-calming"],
+    ["AFTER · Physio block B — IT band + quads","R ×4, L ×2","20s holds"]] },
 };
 
 const CARDIO = {
@@ -265,6 +280,36 @@ const SESSIONS = [
 ];
 const TODAY_MAP = { Mon:["monU","monQ"], Tue:["tueL","tueW"], Wed:["wedL"], Thu:["thuU","thuB"],
                     Fri:["friX","friL"], Sat:["satX","satC"], Sun:["sunW"] };
+const AFTER = { monQ:["C","hips + glutes"], wedL:["B","IT band + quads"], satC:["C","hips + glutes"] };
+
+/* ---- California, Nov 24 – Dec 3 ---- */
+const TRAVEL_PROG = {
+  A:{ t:"Session A — Upper", s:"30–40 min · every set within 1–3 reps of failure · gym version first, hotel-room version after “room:”", i:[
+    ["Smith incline press — or DB incline","3×6-10","room: feet-up push-ups, 3×max−2"],
+    ["One-arm DB row","3×8-12 each","room: band row, 3×15"],
+    ["Lat pulldown — or pull-ups if there's a bar","3×8-12","room: band pull-apart, 3×15-20"],
+    ["DB shoulder press","2×8-12","room: pike push-ups, 2×8-12"],
+    ["DB lateral raise","2×12-15","room: band lateral raise"],
+    ["DB curl + overhead tricep ext, back to back","2×10-12","room: band curl + chair dips"]] },
+  B:{ t:"Session B — Lower + Core", s:"35–45 min · knee rule still applies: ≤3/10, settled by morning · ≤90° on every squat", i:[
+    ["PREP · Clamshell + band side walk","1×10 each","2 min"],
+    ["Smith hip thrust","3×8-12","room: single-leg glute bridge, 3×12 each, 2s squeeze"],
+    ["KB goblet squat to a bench, ≤90°","3×8-12","room: split squat ≤90°, 2×10 each"],
+    ["DB or KB RDL","3×8-10","room: single-leg RDL, 2×10 each"],
+    ["Reverse lunge, right first","2×8-10 each","DBs, or bodyweight with a slow lower"],
+    ["Core circuit — med ball overhead crunch · reverse crunch · Russian twist · dead bug","×3, 45s between","room: water bottle or bodyweight"],
+    ["AFTER · Physio stretches, block B","R ×4, L ×2","20s holds"]] },
+};
+const TRAVEL_RUNS = "1 easy run between Nov 25 and 30 (2 if it fits), 25–40 min, conversational. Pasadena: the Rose Bowl loop. San Diego: the boardwalk or Mission Bay. San Francisco: flat routes only (Embarcadero, Crissy Field).";
+const TRAVEL = [
+  { k:"trvA", lab:"Travel · Session A — Upper",        trv:"A" },
+  { k:"trvB", lab:"Travel · Session B — Lower + Core", trv:"B" },
+  { k:"trvR", lab:"Travel · Easy Runs",                txt:TRAVEL_RUNS },
+];
+const TRAVEL_HOW = `<b>Training window: Nov 25–30, plus the morning of Dec 3.</b> Nothing on Nov 24 (travel day) or Dec 1–2. Aim for 3–4 sessions across those days, alternating A and B, plus an easy run if it fits. Back-to-back days are fine because A and B hit different muscles. <b>Make Dec 3 Session A:</b> Friday legs is the next day, so keep the lower-body session away from it. Dec 1–2 with no training: closer to 2,100, unless you're walking 15k+.<br><br>
+  Muscle holds on about a third of your usual weekly sets, as long as the sets are hard. Keep the weights heavy and drop the volume, not the other way round.<br><br>
+  <b>The Langham, Pasadena (3–4 nights):</b> open 24h, with a Smith machine, dumbbells, kettlebells, med balls and TechnoGym machines. Do the gym versions there. <b>San Diego and San Francisco:</b> use the hotel gym if there is one, otherwise the room versions.<br><br>
+  <b>Pack:</b> the physio mini band, plus a long loop band if you have one. Both fit in a shoe and cover the prep, the side walks and every room exercise.`;
 
 const RULES = [
  ["Protein never moves.","<b>165g every day</b> — training days, rest days, restaurants, travel. It is the single biggest lever you have for holding muscle in a deficit. Two days under 150g in a week and the week failed, whatever the calorie total said."],
@@ -274,9 +319,9 @@ const RULES = [
  ["Judge on three-week trends and Thursday photos.","One weigh-in is noise. One bad session is noise. <b>Nothing changes on a single data point</b>, in either direction."],
  ["Creatine, 5g, every day.","Cheapest performance insurance there is in a deficit, and the one supplement with real evidence behind it. Timing is irrelevant — just don't miss days."],
  ["Sleep 7h+.","Under-sleeping in a deficit shifts <b>what</b> you lose toward lean mass rather than fat. That's a measured effect, not a wellness line. On a week where sleep collapses, eat at maintenance instead of pushing the deficit."],
- ["Fuel the session; don't fuss over pre-workout protein.","<b>Carbs before an early lift are the part that matters</b> — your ~200 cal is what keeps the top sets alive in a deficit. Protein timing around training is a minor variable next to the daily total; 165g across 3–4 feedings covers it. The one thing worth doing: <b>35–40g within an hour or two of finishing</b>, so the overnight gap doesn't stretch to lunch."],
+ ["Fuel the session; don't fuss over pre-workout protein.","<b>Carbs before an early lift are the part that matters</b> — your ~200 cal is what keeps the top sets alive in a deficit. Monday is the tired day: make Sunday dinner the carb meal and take ~300 cal before Upper A. Protein timing around training is a minor variable next to the daily total; 165g across 3–4 feedings covers it. The one thing worth doing: <b>35–40g within an hour or two of finishing</b>, so the overnight gap doesn't stretch to lunch."],
  ["Four or more days off-plan is a maintenance week.","Not a failure. Eat ~2,300, keep lifting, resume the cut after. <b>Never try to make up a deficit</b> — that's how a good block turns into a crash."],
- ["Photos beat the mirror and the scale.","Thursday AM, same spot, same light, same relaxed pose. At this body fat the mirror lies in both directions depending on the hour, the light and what you ate."],
+ ["Photos beat the mirror and the scale.","Thursday AM, same spot, same light, phone at chest height: <b>front, side, front with arms relaxed at your sides, and back.</b> The arms-down shot is the honest one. At this body fat the mirror lies in both directions depending on the hour, the light and what you ate."],
 ];
 
 const WIRES = [
@@ -295,16 +340,24 @@ function badge() {
   const b = document.getElementById("savebadge");
   if (!b) return;
   b.textContent = "SAVED"; b.style.color = "var(--a)";
-  setTimeout(() => { b.textContent = countLogged() + "/12 LOGGED"; b.style.color = ""; }, 1300);
+  setTimeout(() => { b.textContent = logLabel(); b.style.color = ""; }, 1300);
 }
 function gateWeek() {
   var ws = Object.keys(logs).map(Number).filter(function(n){ return logs[n] && logs[n].gate === "clear"; });
   return ws.length ? Math.min.apply(null, ws) : 0;
 }
-function phaseFor(n) {                       // gate cleared -> HOLD from the following week
-  var g = gateWeek();
-  if (g && n > g) return PHASES[PHASES.length-1];
-  return PHASES.find(function(p){ return p.weeks.includes(n); }) || PHASES[PHASES.length-1];
+function phaseAt(d) {
+  if (d < PHASES[0].from) return PHASES[0];
+  return PHASES.find(function(p){ return d >= p.from && d < p.to; }) || NEXT;
+}
+function refDate(n) {                        // the current week reads today's date; any other week reads its Wednesday
+  if (n === currentWeek()) return new Date();
+  return new Date(START.getFullYear(), START.getMonth(), START.getDate() + (n - 1) * 7 + 2);
+}
+function phaseFor(n) {                       // gate cleared -> HOLD from the following week (travel + Florida keep their own targets)
+  var p = phaseAt(refDate(n)), g = gateWeek();
+  if (g && n > g && !p.fixed && p !== NEXT) return HOLD;
+  return p;
 }
 function currentWeek() {
   const d = Math.floor((Date.now() - START.getTime()) / 6048e5);
@@ -313,24 +366,42 @@ function currentWeek() {
 let wk = currentWeek();
 let tab = "today";
 const dayName = () => ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][new Date().getDay()];
-const countLogged = () => SESSIONS.filter(s => logs[wk] && logs[wk][s.k] && logs[wk][s.k].a).length;
+function sessionsFor(n) {                    // travel weeks: the trip's sessions plus whichever home days fall in that week
+  const W = WEEKS[n-1];
+  if (!W.home) return SESSIONS;
+  const home = SESSIONS.filter(s => W.home.includes(s.k));
+  return W.homeFirst ? home.concat(TRAVEL) : TRAVEL.concat(home);
+}
+const countLogged = () => sessionsFor(wk).filter(s => logs[wk] && logs[wk][s.k] && logs[wk][s.k].a).length;
+const logLabel = () => countLogged() + "/" + sessionsFor(wk).length + " LOGGED";
 
 /* ============================ HELPERS ============================ */
 const esc = s => String(s == null ? "" : s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/"/g,"&quot;");
 function setField(sk, f, v) { logs[wk] = logs[wk] || {}; logs[wk][sk] = logs[wk][sk] || {}; logs[wk][sk][f] = v; }
 function setWeek(f, v) { logs[wk] = logs[wk] || {}; logs[wk][f] = v; }
 
-function liftRows(k) {
-  return LIFTS[k].i.map(r => `<div class="liftrow${r[3]?" swap":""}"><span class="n">${r[0]}</span>` +
+function rowsHTML(items) {
+  return items.map(r => `<div class="liftrow${r[3]?" swap":""}"><span class="n">${r[0]}</span>` +
     `<span class="s mono">${r[1]}${r[2] ? " · " + r[2] : ""}</span></div>`).join("");
+}
+const liftRows = k => rowsHTML(LIFTS[k].i);
+function travelRows(x) {                     // gym version on the left, the room fallback underneath it
+  return TRAVEL_PROG[x].i.map(r => `<div class="liftrow"><span class="n">${r[0]}${r[2] ? `<span class="alt">${r[2]}</span>` : ""}</span>` +
+    `<span class="s mono">${r[1]}</span></div>`).join("");
+}
+const travelHTML = x => `<div class="ttl">${TRAVEL_PROG[x].t}</div><div class="sub">${TRAVEL_PROG[x].s}</div>${travelRows(x)}`;
+function afterNote(k) {
+  const a = AFTER[k];
+  return a ? `<div class="sub" style="margin:8px 0 0">After: physio block ${a[0]} (${a[1]}), ~6 min</div>` : "";
 }
 function planHTML(S, week) {
   if (S.lift) return `<div class="ttl">${LIFTS[S.lift].t}</div><div class="sub">${LIFTS[S.lift].s}</div>${liftRows(S.lift)}`;
+  if (S.trv)  return travelHTML(S.trv);
   if (S.txt)  return `<div class="plan" style="color:var(--tx2)">${S.txt}</div>`;
   const v = S.get(week);
   if (S.k === "satC") return `<div class="sub">Skills first, while fresh · progression changes weekly</div>` +
-    v.split(" · ").map(x => `<div class="liftrow"><span class="n">${x}</span></div>`).join("");
-  return `<div class="plan">${v}</div>`;
+    v.split(" · ").map(x => `<div class="liftrow"><span class="n">${x}</span></div>`).join("") + afterNote(S.k);
+  return `<div class="plan">${v}</div>${afterNote(S.k)}`;
 }
 function fieldsHTML(sk) {
   const v = (logs[wk] && logs[wk][sk]) || {};
@@ -342,8 +413,40 @@ function fieldsHTML(sk) {
 function sessionCard(S, week, withPlan) {
   const done = (logs[wk] && logs[wk][S.k] && logs[wk][S.k].a) ? " done" : "";
   return `<div class="card${done}"><div class="slab">${S.lab.toUpperCase()}${done ? " · ✓" : ""}</div>` +
-    (withPlan ? planHTML(S, week) : `<div class="sub">${S.lift ? LIFTS[S.lift].s : (S.txt ? S.txt.split(".")[0] + "." : S.get(week))}</div>`) +
+    (withPlan ? planHTML(S, week) : `<div class="sub">${S.lift ? LIFTS[S.lift].s : S.trv ? TRAVEL_PROG[S.trv].s : (S.txt ? S.txt.split(".")[0] + "." : S.get(week))}</div>`) +
     fieldsHTML(S.k) + `</div>`;
+}
+
+function fuelCard(d) {                      // what to eat today, keyed to the real date; nothing on the trip or after the block
+  if (onTrip(d) || d >= FLA_FROM) return "";
+  const day = new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime(), wd = d.getDay();
+  let t = "";
+  if (day === D(11,17).getTime())      t = "<b>Tonight: carb-heavy dinner</b>, because tomorrow is the 10K. Rice, pasta or potatoes; go easy on fat and fibre.";
+  else if (day === D(11,18).getTime()) t = "<b>10K day.</b> ~300 cal of carbs 60–90 min before (toast and honey, a banana, a bagel) and a glass or two of water in the hour before. Nothing needed during. Protein and carbs after.";
+  else if (wd === 0) t = "<b>Tonight: make dinner the carb meal.</b> It's what fuels Monday's Upper A.";
+  else if (wd === 1) t = "<b>Before Upper A: ~300 cal of carbs</b> (toast and honey, a banana, a bagel). Then 35–40 g of protein within an hour or two of finishing.";
+  else if (wd === 2) t = "<b>Tonight: put more of the day's carbs into dinner</b> for tomorrow's long run.";
+  else if (wd === 3) t = "<b>Before the run: ~200–300 cal of carbs</b> 60–90 min before, plus a glass of water. Nothing needed during.";
+  return t ? `<div class="card key"><div class="slab">FUEL · TODAY</div><div class="plan" style="color:var(--tx2);font-size:12.5px">${t}</div></div>` : "";
+}
+function weighCard(week, where) {           // where = "today" | "log"; ids stay w-today / waist-today / w-log / waist-log
+  const L = logs[wk] || {};
+  const lead = where === "today"
+    ? "Wake, bathroom, weigh, before food or water. Same conditions every week. Then the photos."
+    : (week.tgt ? "Target this week: ~" + week.tgt + " lb" : "Travel week: no weigh-in needed. Log it only if you weighed.");
+  const ph = where === "today" ? (week.tgt ? "Target ~" + week.tgt + " lb" : "Travel week: no target") : "Weight, e.g. 154.2 lb";
+  return `<div class="card key"><div class="slab">THURSDAY AM WEIGH-IN</div>
+    <div class="sub">${lead}</div>${week.wr ? `<div class="note" style="color:var(--tx2);margin-top:4px">${week.wr}</div>` : ""}
+    <input id="w-${where}" inputmode="decimal" placeholder="${ph}" value="${esc(L.weight)}"
+      oninput="setWeek('weight',this.value)" onchange="save()" onblur="save();render(false)">
+    <div class="sub" style="margin-top:10px">Waist (in) — at the navel, relaxed, breathe out normally</div>
+    <input id="waist-${where}" inputmode="decimal" placeholder="e.g. 31.5" value="${esc(L.waist)}"
+      oninput="setWeek('waist',this.value)" onchange="save()" onblur="save();render(false)">
+    ${week.tgt ? `<div class="sub" style="margin-top:12px;color:var(--a)">PHOTOS · RIGHT AFTER</div>
+    <div class="liftrow"><span class="n">Front · side · front with arms relaxed at your sides · back</span></div>
+    <div class="liftrow"><span class="n">Same spot, same light, phone at chest height, before eating</span></div>
+    <div class="liftrow"><span class="n">Check: lower two abs? Serratus at rest? Shoulder and lat width holding?</span></div>
+    <div class="note">The arms-down shot is the honest one. Holding the phone up stretches your torso and flatters the abs.</div>` : ""}</div>`;
 }
 
 /* ============================ EXPORT / IMPORT ============================ */
@@ -397,31 +500,27 @@ function trendHTML() {
 function render(scroll) {
   if (scroll === undefined) scroll = true;
   const week = WEEKS[wk-1], phase = phaseFor(wk), today = dayName();
-  document.body.className = phase.id === 3 ? "ph3" : "";
+  document.body.className = phase.teal ? "ph3" : "";
+  const now = new Date(), trip = onTrip(now);
 
   let body = "";
 
   if (tab === "today") {
-    body = `<div class="slab">${today.toUpperCase()} · WEEK ${wk}</div>` +
-      TODAY_MAP[today].map(k => sessionCard(SESSIONS.find(s => s.k === k), week, true)).join("");
-    if (today === "Thu") body += `<div class="card key"><div class="slab">THURSDAY AM WEIGH-IN</div>
-      <div class="sub">Wake, bathroom, weigh, before food or water. Same conditions every week. Then the photo.</div>${week.wr ? `<div class="note" style="color:var(--tx2);margin-top:4px">${week.wr}</div>` : ""}
-      <input id="w-today" inputmode="decimal" placeholder="Target ~${week.tgt} lb" value="${esc(logs[wk] && logs[wk].weight)}"
-        oninput="setWeek('weight',this.value)" onchange="save()" onblur="save();render(false)">
-      <div class="sub" style="margin-top:10px">Waist (in) — at the navel, relaxed, breathe out normally</div>
-      <input id="waist-today" inputmode="decimal" placeholder="e.g. 31.5" value="${esc(logs[wk] && logs[wk].waist)}"
-        oninput="setWeek('waist',this.value)" onchange="save()" onblur="save();render(false)"></div>`;
+    if (trip) {
+      body = `<div class="slab">${today.toUpperCase()} · ON THE ROAD · WEEK ${wk}</div>
+        <div class="card key"><div class="slab">CALIFORNIA · HOW THE TRIP WORKS</div><div class="plan" style="color:var(--tx2);font-size:12.5px">${TRAVEL_HOW}</div></div>` +
+        TRAVEL.map(S => sessionCard(S, week, true)).join("");
+    } else {
+      body = `<div class="slab">${today.toUpperCase()} · WEEK ${wk}</div>` + fuelCard(now) +
+        (phaseAt(now) === PHASES[4] ? `<div class="card key"><div class="slab">FLORIDA · DEC 17 – JAN 5</div><div class="plan" style="color:var(--tx2);font-size:12.5px">
+          <b>About one session a day</b>, picked from the home week: the four lifts first (Upper A, Hips + Posterior, Upper B, Hard Legs), runs or tennis on the other days. <b>~2,300, protein 150+.</b> Weigh Thursdays: the first week can read up to 3 lb high from water. After that, more than 3 lb over your Dec 17 weight → ~2,100 until it's back. Export a backup on Jan 5 and send it before the January cut.</div></div>` : "") +
+        TODAY_MAP[today].map(k => sessionCard(SESSIONS.find(s => s.k === k), week, true)).join("");
+      if (today === "Thu") body += weighCard(week, "today");
+    }
   }
 
   if (tab === "log") {
-    body = SESSIONS.map(S => sessionCard(S, week, false)).join("") +
-      `<div class="card key"><div class="slab">THURSDAY AM WEIGH-IN</div>
-        <div class="sub">Target this week: ~${week.tgt} lb</div>${week.wr ? `<div class="note" style="color:var(--tx2);margin-top:4px">${week.wr}</div>` : ""}
-        <input id="w-log" inputmode="decimal" placeholder="Weight, e.g. 154.2 lb" value="${esc(logs[wk] && logs[wk].weight)}"
-          oninput="setWeek('weight',this.value)" onchange="save()" onblur="save();render(false)">
-      <div class="sub" style="margin-top:10px">Waist (in) — at the navel, relaxed, breathe out normally</div>
-      <input id="waist-log" inputmode="decimal" placeholder="e.g. 31.5" value="${esc(logs[wk] && logs[wk].waist)}"
-        oninput="setWeek('waist',this.value)" onchange="save()" onblur="save();render(false)"></div>`;
+    body = sessionsFor(wk).map(S => sessionCard(S, week, false)).join("") + weighCard(week, "log");
     if (wk >= 5) {
       const g = (logs[wk] && logs[wk].gate) || "";
       body += `<div class="card key"><div class="slab">THE GATE · ABS CHECK</div>
@@ -432,7 +531,7 @@ function render(scroll) {
           <option value="close"${g==="close"?" selected":""}>Close — top four, lower two soft</option>
           <option value="clear"${g==="clear"?" selected":""}>CLEARED — lower abs + serratus at rest</option>
         </select>
-        ${g==="clear" ? `<div class="note" style="color:var(--a)">Gate cleared. Stop cutting. Go to HOLD next week: 2,250 for seven days, then 2,350. Don't finish the calendar.</div>` : ""}</div>`;
+        ${g==="clear" ? `<div class="note" style="color:var(--a)">Gate cleared. Stop cutting: HOLD from next week, 2,250 for seven days, then 2,350. California still runs as planned, and Dec 4–16 becomes HOLD instead of a cut. Don't finish the calendar.</div>` : ""}</div>`;
     }
     body += trendHTML() +
       `<button class="btn primary" onclick="exportData()">EXPORT BACKUP — COPY + FILE</button>
@@ -442,17 +541,18 @@ function render(scroll) {
   }
 
   if (tab === "runs") {
-    body = `<div class="card key"><div class="slab">MON PM · QUALITY</div><div class="plan">${week.q}</div></div>
-      <div class="card key"><div class="slab">WED AM · LONG — THE PRIORITY</div><div class="plan">${week.l}</div></div>
+    body = `<div class="card key"><div class="slab">${week.ql || "MON PM · QUALITY"}</div><div class="plan">${week.q}</div>${afterNote("monQ", week)}</div>
+      <div class="card key"><div class="slab">${week.ll || "WED AM · LONG — THE PRIORITY"}</div><div class="plan">${week.l}</div>${afterNote("wedL", week)}</div>
+      ${week.trip ? `<div class="card"><div class="slab">CALIFORNIA · THE REST OF THE CARDIO</div><div class="plan" style="color:var(--tx2)">Walking is the cardio on the trip. No incline sessions, and nothing added to make up for a big dinner. The easy run is an optional extra, not a quota.</div></div>` : ""}
       <div class="card"><div class="slab">THU · BIKE COMMUTE</div><div class="plan" style="color:var(--tx2)">${CARDIO.thuB}</div></div>
-      <div class="card"><div class="slab">THE REST OF THE CARDIO — CAPPED</div>
+      <div class="card"><div class="slab">THE REST OF THE CARDIO — CAPPED${week.trip ? " · HOME DAYS" : ""}</div>
         <div class="liftrow"><span class="n">Tue incline walk</span><span class="s mono">20–25 min</span></div>
         <div class="liftrow"><span class="n">Fri tennis <em>or</em> incline</span><span class="s mono">60 / 45 min</span></div>
         <div class="liftrow"><span class="n">Sat tennis <em>or</em> incline</span><span class="s mono">60–90 / 45–60 min</span></div>
         <div class="liftrow"><span class="n">Sun walk</span><span class="s mono">30–60 min</span></div></div>
-      <div class="card"><div class="slab">8K TARGET · SUB-45</div>
-        <div class="plan" style="color:var(--tx2)">45:00 over 8K is <b>5:37/km</b>. Your 7.7K easy run on Oct 21 was 5:46/km and you said you could've done more — so the gap is nine seconds a kilometre, at race effort instead of easy. Time trial is week 8, re-run week 10 if you miss it.</div></div>
-      <div class="note">If the week collapses, drop Monday's quality run. Never Wednesday.</div>`;
+      <div class="card key"><div class="slab">GOAL · EASY 10K BY WED NOV 18</div>
+        <div class="plan" style="color:var(--tx2)"><b>Distance, not pace.</b> Wednesdays build 8K (Nov 4) → 9K (Nov 11) → 10K (Nov 18), all conversational. It's your last run before California. No gels or bottle needed for an hour in November; eat beforehand. <b>8K sub-45 already done:</b> 44:43 on Oct 28. <b>Monday intervals:</b> comfortably hard, never all-out; you should be able to say a few words at the end of each rep. <b>Wednesday:</b> long and slow, conversational the whole way. Easy running at two runs a week doesn't cost you muscle; the lifting and protein are what protect it.</div></div>
+      <div class="note">If the week collapses, drop Monday's quality run. Never Wednesday. Physio stretches: block C after Monday's run, block B after Wednesday's.</div>`;
   }
 
   if (tab === "lifts") {
@@ -465,23 +565,38 @@ function render(scroll) {
         <div class="dbody"><div class="sub" style="padding:7px 0">Skills first, while fresh · switch weeks above to scout ahead</div>${
           week.c.split(" · ").map(x => `<div class="liftrow"><span class="n">${x}</span></div>`).join("")
         }</div></details>
-      <div class="card key"><div class="slab">PHYSIO PROGRAM — HIPS & KNEE · SPLIT, NOT DAILY</div>
-        <div class="sub">Short IT band and inward knee rotation on the right; weight shifting left. Review ~Oct 30.</div>
-        <div class="sub" style="margin-top:8px;color:var(--a)">A · ACTIVATION — before Tue &amp; Fri legs (~8 min)</div>
+      <details${(week.trip || trip) ? " open" : ""}><summary><span><span class="mono daytag">CA</span><span style="font-size:14px;font-weight:600">California · Nov 24 – Dec 3</span></span>
+        <span class="mono" style="font-size:10px;color:var(--dim)">A/B</span></summary>
+        <div class="dbody"><div class="plan" style="color:var(--tx2);font-size:12.5px;padding:9px 0 4px">${TRAVEL_HOW}</div>
+          <div style="margin-top:12px">${travelHTML("A")}</div>
+          <div style="margin-top:16px">${travelHTML("B")}</div>
+          <div class="sub" style="margin-top:14px;color:var(--a)">RUNS</div><div class="plan" style="color:var(--tx2);font-size:12.5px">${TRAVEL_RUNS} Long downhills load the kneecap more.</div></div></details>
+      <div class="card key"><div class="slab">PHYSIO PROGRAM v2 — HIPS & KNEE · SPLIT, NOT DAILY</div>
+        <div class="sub">Oct 30 review: getting better. IT band still tight, hip flexors still weak, not flexible enough yet. The plan is strengthening the muscles around the knee to take load off the joint. <b style="color:var(--tx2)">Follow-up: Sat Dec 5.</b></div>
+        <div class="sub" style="margin-top:8px;color:var(--a)">A · ACTIVATION — before Tue &amp; Fri legs (~8–10 min)</div>
+        <div class="sub" style="margin:2px 0 0">Tuesday</div>
         <div class="liftrow"><span class="n">Clamshell, banded</span><span class="s mono">2×10 each · 3s</span></div>
-        <div class="liftrow"><span class="n">Prone hip abduction (Tue)</span><span class="s mono">2×10 each · 3s</span></div>
-        <div class="liftrow"><span class="n">Balance, standing, cycling leg (Fri)</span><span class="s mono">2×20 each</span></div>
+        <div class="liftrow"><span class="n">Prone hip abduction</span><span class="s mono">2×10 each · 3s</span></div>
+        <div class="liftrow swap"><span class="n">Band side walk, legs straight — band just above the knees, toes forward, hips level</span><span class="s mono">2×10 steps each way</span></div>
         <div class="liftrow"><span class="n">Squat with band, knees pushing out</span><span class="s mono">2×10 · 3s</span></div>
-        <div class="sub" style="margin-top:10px;color:var(--a)">B · STRETCHES — after legs AND after Mon/Wed runs (~7 min)</div>
-        <div class="liftrow"><span class="n">Standing side-bend, legs crossed, arm overhead (IT band)</span><span class="s mono">R ×4 · L ×2 · 20s</span></div>
-        <div class="liftrow"><span class="n">Hip flexor stretch, block — tuck pelvis under, squeeze back-leg glute, then lean; reach same-side arm up</span><span class="s mono">R ×4 · L ×2 · 20s</span></div>
+        <div class="sub" style="margin:8px 0 0">Friday</div>
+        <div class="liftrow"><span class="n">Balance, standing, cycling leg</span><span class="s mono">2×20 each</span></div>
+        <div class="liftrow swap"><span class="n">Diagonal hip extension, banded — kick back and out at 45°, squeeze the glute, no back arch</span><span class="s mono">2×10 each</span></div>
+        <div class="liftrow swap"><span class="n">Side-step shuffle + mini squat between 2 cones, alternate lead leg</span><span class="s mono">2×10</span></div>
+        <div class="liftrow"><span class="n">Squat with band, knees pushing out</span><span class="s mono">2×10 · 3s</span></div>
+        <div class="sub" style="margin-top:10px;color:var(--a)">B · STRETCH: IT BAND + QUADS — after Tue &amp; Fri legs and the Wed run (~6 min)</div>
+        <div class="liftrow swap"><span class="n">IT band, lying — knee across the body with the opposite hand, shoulders down</span><span class="s mono">R ×4 · L ×2 · 20s</span></div>
+        <div class="liftrow"><span class="n">Standing side-bend, legs crossed, arm overhead</span><span class="s mono">R ×4 · L ×2 · 20s</span></div>
+        <div class="liftrow swap"><span class="n">Quad, face down with a strap — hips pressed into the floor, stop short of knee pain</span><span class="s mono">R ×4 · L ×2 · 20s</span></div>
+        <div class="sub" style="margin-top:10px;color:var(--a)">C · STRETCH: HIPS + GLUTES — after the Mon run, Thu upper and Sat calisthenics (~6 min)</div>
+        <div class="liftrow"><span class="n">Hip flexor, block — tuck pelvis under, squeeze back-leg glute, then lean; reach same-side arm up</span><span class="s mono">R ×4 · L ×2 · 20s</span></div>
         <div class="liftrow"><span class="n">Figure-4, lying</span><span class="s mono">R ×4 · L ×2 · 20s</span></div>
         <div class="liftrow"><span class="n">Cross-body piriformis, lying</span><span class="s mono">R ×4 · L ×2 · 20s</span></div>
-        <div class="sub" style="margin-top:10px;color:var(--a)">C · HOME — Sunday, optional (~10 min)</div>
+        <div class="sub" style="margin-top:10px;color:var(--a)">D · HOME — Sunday (~12 min)</div>
         <div class="liftrow"><span class="n">Supine banded leg press</span><span class="s mono">2×10 each · 3s</span></div>
         <div class="liftrow"><span class="n">Clamshell + prone abduction</span><span class="s mono">2×10 each · 3s</span></div>
-        <div class="liftrow"><span class="n">Block B stretches</span><span class="s mono">as above</span></div>
-        <div class="note">Everything she prescribed gets done 3–5×/week, never more than ~10 min at a time. Right side gets the extra stretch reps because that's the tight side.</div></div>
+        <div class="liftrow"><span class="n">Block B again (she doubled the IT band and quad stretches)</span><span class="s mono">as above</span></div>
+        <div class="note">All 14 of her exercises, split so no slot runs past ~10 min. Some stretching lands every day (B four times a week, C three), because flexibility only moves with frequency: about 5 min per muscle per week, spread out. The strengthening is what actually takes load off the knee. The IT band itself barely stretches; these work on the hip muscles that pull on it. Right side gets the extra reps because it's the tight side.</div></div>
       <div class="card"><div class="slab">CORE CIRCUIT — THE ×3</div>
         <div class="liftrow"><span class="n">Med ball overhead crunch</span><span class="s mono">12–15</span></div>
         <div class="liftrow"><span class="n">Reverse crunch</span><span class="s mono">12–15</span></div>
@@ -498,17 +613,19 @@ function render(scroll) {
         <ol><li><b>Lower two abs visible</b> — not just the top four</li>
             <li><b>Serratus visible at rest</b></li>
             <li><b>Weight at or under 151</b> and holding</li></ol>
-        <div class="note">All three land → stop cutting that week and go to HOLD. <b style="color:var(--tx)">Hard floor: 148 lb.</b> Below that at 6'0 you're trading the physique for a smaller copy of it. If the gate hasn't cleared at 149, the answer is more muscle — not less food.</div></div>
+        <div class="note">All three land → stop cutting that week and go to HOLD. <b style="color:var(--tx)">Hard floor: 148 lb.</b> Below that at 6'0 you're trading the physique for a smaller copy of it. If the gate hasn't cleared at 149, the answer is more muscle — not less food.<br><br>Not cleared by Thu Nov 19? Nothing gets forced before the trip. The cut picks up again Dec 4–16, and January carries on from there.</div></div>
       <div class="card"><div class="slab">TRIPWIRES — ANY ONE AND CALORIES GO +150/DAY, SAME DAY</div>
         ${WIRES.map(w => `<div class="wire">${w}</div>`).join("")}
         <div class="note">No debate, no waiting a week to see. You have a documented history of under-eating relative to your activity and the hot flashes last block were the receipt.</div></div>
       <div class="card"><div class="slab">TEN RULES — SO YOU DON'T END UP SKINNY</div>
         ${RULES.map((r,i) => `<div class="rule"><div class="num anton">${i+1}</div><div class="txt"><b>${r[0]}</b> ${r[1]}</div></div>`).join("")}</div>
       <div class="card"><div class="slab">FUEL — FULL MAP</div>
-        ${PHASES.map(p => `<div class="liftrow"><span class="n">Phase ${p.id} · ${p.name} <span style="color:var(--dim)">wk ${p.weeks[0]}–${p.weeks[p.weeks.length-1]}</span></span>
-          <span class="s mono">${p.cal} / ${p.rest}</span></div>`).join("")}
-        <div class="note">Training day / Sunday. Macros this phase: <b style="color:var(--tx2)">${phase.mac}</b>. Target rate: ${phase.rate}.<br>
-        Weeks 1–4 at ~2,300 actual held the scale flat (155.4 → 156.3), so effective maintenance is ~2,300–2,400, well under the ~2,725 the formula and Garmin suggested. Phase 1 is now 2,100 / 1,900, averaging ~2,070 — a 250–300/day deficit. Re-check Oct 29: two more Thursdays plus waist.<br><br>Fat sits at 27% of calories — inside the 15–30% band, with carbs taking the rest. Sunday: P165 · C185 · F56.<br><br>Protein is above 1 g/lb on purpose. Requirement scales with LEAN mass, not bodyweight, and rises in a deficit: 165g = 2.7 g/kg LBM, mid-range of the 2.3–3.1 recommended for lean athletes cutting. It stays 165 all the way down — your lean mass isn't supposed to change, so neither does the number.<br><br>Timing beats totals: put ~150g of the day's carbs in the meal before and the meal after training, and take the rest out of the evening. Same number on the label, fuel where it does work, less food sitting on you at night.</div></div>`;
+        ${PHASES.concat([HOLD]).map(p => `<div class="liftrow"><span class="n">${p.id ? "Phase " + p.id + " · " : "If the gate clears · "}${p.name} <span style="color:var(--dim)">${p.span}</span></span>
+          <span class="s mono">${p.map || (p.cal + " / " + p.rest)}</span></div>`).join("")}
+        <div class="note">Training day / Sunday unless the row says otherwise. Right now: <b style="color:var(--tx2)">${phase.mac}</b> · ${phase.rate}.<br>
+        Weeks 1–4 at ~2,300 actual held the scale flat (155.4 → 156.3), so maintenance on a full home week is ~2,300–2,400, well under the ~2,725 the formula and Garmin suggested. 2,100 / 1,900 averages ~2,070, a 250–300/day deficit: it took you from 156.3 to 154.0 and from 30.7" to 30.3" in two weeks.<br><br>
+        <b style="color:var(--tx2)">Travel burns less.</b> The California program is ~250/day less training than a home week, so maintenance on the road is ~2,100–2,200, and closer to 2,350 on a 15k+ step day. That's why the break is ~2,200, not 2,350. A diet break means eating at maintenance; the extra carbs still refill you.<br><br>
+        <b style="color:var(--tx2)">Florida</b> is about one session a day, also less than home, so ~2,300 is at or just above maintenance. The Thursday weigh-in decides: more than 3 lb over your Dec 17 weight after the first week → ~2,100 until it's back.<br><br>Fat sits at 27% of calories — inside the 15–30% band, with carbs taking the rest. Sunday: P165 · C185 · F56.<br><br>Protein is above 1 g/lb on purpose. Requirement scales with LEAN mass, not bodyweight, and rises in a deficit: 165g = 2.7 g/kg LBM, mid-range of the 2.3–3.1 recommended for lean athletes cutting. It stays 165 all the way down — your lean mass isn't supposed to change, so neither does the number.<br><br>Timing beats totals: put ~150g of the day's carbs in the meal before and the meal after training, and take the rest out of the evening. Same number on the label, fuel where it does work, less food sitting on you at night.</div></div>`;
   }
 
   document.getElementById("app").innerHTML = `
@@ -517,11 +634,11 @@ function render(scroll) {
         <div class="wordmark anton">Ax.Q4</div>
         <div class="wk"><div class="n anton mono">${wk}</div><div class="d mono">${week.dates.toUpperCase()}</div></div>
       </div>
-      <div class="strip mono"><span>NO DAYS WASTED</span><span class="r">PHASE ${phase.id} · ${phase.name}${week.down ? " · DELOAD" : ""}${(gateWeek() && wk > gateWeek()) ? " · GATE WK" + gateWeek() : ""}</span></div>
+      <div class="strip mono"><span>NO DAYS WASTED</span><span class="r">${phase.id ? "PHASE " + phase.id + " · " : ""}${phase.name}${week.down ? " · DELOAD" : ""}${(phase === HOLD && gateWeek()) ? " · GATE WK" + gateWeek() : ""}</span></div>
     </div>
     <div class="fuel">
-      <div><div class="lab mono">TRAINING DAY</div><div class="v anton mono">${phase.cal}</div><div class="s mono">${phase.mac}</div></div>
-      <div><div class="lab mono">SUNDAY</div><div class="v anton mono">${phase.rest}</div><div class="s mono">${phase.rate}</div></div>
+      <div><div class="lab mono">${phase.l1 || "TRAINING DAY"}</div><div class="v anton mono">${phase.cal}</div><div class="s mono">${phase.mac}</div></div>
+      <div><div class="lab mono">${phase.l2 || "SUNDAY"}</div><div class="v anton mono">${phase.rest}</div><div class="s mono">${phase.rate}</div></div>
     </div>
     <div class="dots">${WEEKS.map(w => {
       const has = logs[w.num] && Object.keys(logs[w.num]).length;
@@ -531,7 +648,7 @@ function render(scroll) {
     <div class="tabs">${[["today","today"],["log","log"],["runs","runs"],["lifts","lifts"],["rules","rules"]].map(t =>
       `<button class="mono ${tab===t[0]?"on":""}" onclick="tab='${t[0]}';render()">${t[1]}</button>`).join("")}</div>
     ${body}
-    <div class="foot mono"><span id="savebadge">${countLogged()}/12 LOGGED</span><span>155.5 → ~150 · ABS, NOT A DATE</span></div>`;
+    <div class="foot mono"><span id="savebadge">${logLabel()}</span><span>155.5 → ~150 · ABS, NOT A DATE</span></div>`;
   if (scroll) window.scrollTo(0, 0);
 }
 render();

@@ -162,7 +162,7 @@ const PHASES = [
     l1:"MOST DAYS", cal:"~2,300", l2:"PROTEIN", rest:"150+", mac:"~1 session a day", rate:"guardrail: +3 lb", map:"~2,300 · +3 lb guardrail" },
 ];
 const HOLD = { id:null, name:"HOLD", span:"from the week after the gate clears", teal:true,
-  cal:"2,250→2,350", rest:"same", mac:"P170 · C265 · F68", rate:"flat" };
+  cal:"2,250→2,350", rest:"same", mac:"P165 · C270 · F68", rate:"flat" };
 const NEXT = { id:null, name:"NEXT BLOCK", span:"January", cal:"—", rest:"—", mac:"January cut · new plan", rate:"send the backup" };
 const TRIP_FROM = D(11,24), TRIP_TO = D(12,4), FLA_FROM = D(12,17);
 const onTrip = d => d >= TRIP_FROM && d < TRIP_TO;
@@ -194,36 +194,36 @@ const WEEKS = [
    l:"7.5K easy.",
    c:"HS opener · Dips 3×6-8 · Pull-ups 3×6-8 · L-sit 4× max · Core circuit ×3",
    f:"NEW NUMBERS FROM TODAY: 2,100 training / 1,900 Sunday — four flat weigh-ins triggered the rule. Log weekends in full, restaurants included. Add a Thursday waist measurement at the navel. First honest ab check too: Thursday AM, flat overhead light, relaxed, not flexed. Photo it. Don't judge it in a gym mirror after a pump." },
- { num:6, dates:"Oct 26–Nov 1", tgt:"155.3",
+ { num:6, dates:"Oct 26–Nov 1", tgt:"154.5",
    q:"4 min easy → 2× (10 min @ 5:35 / 2 min easy) → 3 min easy. Race-pace rehearsal. 29 min total.",
    l:"8K — done: 44:43 on Oct 28, sub-45 two weeks early ✓",
    c:"HS opener · Dips 3×6-8 · Pull-ups 3×6-8 · L-sit 4× max · Core circuit ×3",
    f:"The cut stays at 2,100 / 1,900 and now runs straight to Mon Nov 23, then California. Thursday: 154.0 and 30.3\". The two-week rate is 1.15 lb/wk, just under the tripwire; over three weeks it's 0.6. Physio Oct 30: getting better. The new program is in the Lifts tab, and Friday loads start stepping back up (squats 40, leg curl 120)." },
  { num:7, dates:"Nov 2–8", tgt:"153.3", key:true,
    q:"3 min easy → 22 min continuous tempo @ 5:40 → 3 min easy. 28 min total.",
-   l:"8K easy, conversational: about 6:00/km, ~48 min. A recovery run after the time trial, not a second attempt. Don't check your pace.",
+   l:"8K easy, conversational: about 6:00/km, ~48 min. Step one of three toward the 10K. Don't check your pace.",
    c:"HS opener · Dips 3×6-8 · Pull-ups 3×6-8 · L-sit 4× max · Core circuit ×3",
    f:"THE GATE OPENS: check it every Thursday from here, with all four photos. No bump to 2,200: the cut holds at 2,100 / 1,900 until Mon Nov 23. Three Thursdays before California (Nov 5, 12, 19). ~0.7 lb/wk is the honest pace, which lands around 152. The photos decide, not the scale. Wednesday is an easy 8K." },
  { num:8, dates:"Nov 9–15", tgt:"152.6", key:true,
    q:"4 min easy → 4× (4 min @ 5:25 / 90s easy) → 3 min easy. 29 min total.",
    l:"9K easy, conversational. Step two of three toward the 10K. If the knee goes past 3/10, cut it short.",
    c:"HS opener · Dips 3×6-8 · Pull-ups 3×6-8 · L-sit 4× max · Core circuit ×3",
-   f:"Running goal: an easy 10K by Wed Nov 18, built 8K → 9K → 10K. Distance, not pace: every Wednesday stays conversational. Monday is back to normal intervals, controlled. Friday squats reach 50 this week if the knee has stayed at 3/10 or under." },
+   f:"Running goal: an easy 10K by Wed Nov 18, built 8K → 9K → 10K. Distance, not pace: every Wednesday stays conversational. Monday is back to normal intervals, controlled. Friday squats hold at 45 this week: the long run is the knee load going up, and only one rises at a time." },
  { num:9, dates:"Nov 16–22", tgt:"151.9", key:true,
    q:"4 min easy → 5× (3 min @ 5:25–5:30, controlled / 90s easy) → 3 min easy. 30 min total.",
    l:"GOAL RUN: 10K easy, conversational, ~5:50–6:15/km, about an hour. No pace target; finishing it relaxed is the win. Carbs at Tuesday dinner, ~300 cal 60–90 min before. Nothing needed during. Knee past 3/10 → stop at 8K.",
    c:"HS opener · Dips 3×6-8 · Pull-ups 3×6-8 · L-sit 4× max · Core circuit ×3",
-   f:"Last full cut week. Thursday Nov 19 is the pre-trip check: weigh-in, waist, all four photos. Gate cleared → eat ~2,300 until you fly, California runs as planned, and Dec 4–16 becomes HOLD instead of a cut. Not cleared → nothing changes and nothing gets forced. No crash in the last four days; the cut picks up again Dec 4. Pack the loop band." },
+   f:"Last full cut week. Thursday Nov 19 is the pre-trip check: weigh-in, waist, all four photos. Gate cleared → HOLD from Monday (2,250) until you fly, California runs as planned, and Dec 4–16 becomes HOLD instead of a cut. Friday after the 10K: squats 50 if the knee has been quiet. Not cleared → nothing changes and nothing gets forced. No crash in the last four days; the cut picks up again Dec 4. Pack the loop band." },
  { num:10, dates:"Nov 23–29", tgt:null, key:true, trip:true, home:["monU","monQ"], homeFirst:true,
    ql:"MON NOV 23 · HOME", ll:"CALIFORNIA · EASY RUNS",
    q:"20 min easy, or skip it if packing wins. Upper A still happens: it's the last session before the trip.",
    l:"1 easy run between Nov 25 and 30 (2 if it fits), 25–40 min, conversational. Pasadena: the Rose Bowl loop (5K, mostly flat). San Diego: the boardwalk or the Mission Bay paths. San Francisco: keep it flat, like the Embarcadero or Crissy Field. Long downhills load the kneecap more.",
    c:"Travel: the California program replaces calisthenics (Lifts tab) · The core circuit is in Session B",
-   f:"CALIFORNIA, Tue Nov 24 to Thu Dec 3: San Diego, LA, San Francisco. Monday is still 2,100. From Tuesday it's a diet break: ~2,200, up to 2,350–2,400 on 15k+ step days, protein 150+ before anything else. Expect +2–4 lb within 3–4 days from glycogen, water, salt and food in transit. It isn't fat. No weigh-ins on the road. Nothing on travel day; train 3–4 times between Nov 25 and 30 (plus Dec 3 before the flight) with the travel program, alternating A and B, plus an easy run if it fits. The trip doubles as your deload." },
+   f:"CALIFORNIA, Tue Nov 24 to Thu Dec 3: San Diego, LA, San Francisco. Monday is still 2,100 (2,250 if the gate cleared). From Tuesday it's a diet break: ~2,200, up to 2,350–2,400 on 15k+ step days, protein 150+ before anything else. Expect +2–4 lb within 3–4 days from glycogen, water, salt and food in transit. It isn't fat. No weigh-ins on the road. Nothing on travel day; train 3–4 times across Nov 25–30 and the morning of Dec 3 with the travel program, alternating A and B, plus an easy run if it fits. The trip doubles as your deload." },
  { num:11, dates:"Nov 30–Dec 6", tgt:null, trip:true, home:["friX","friL","satX","satC","sunW"],
    ql:"CALIFORNIA", ll:"DEC 1–2 OFF · THEN HOME",
    q:"No quality run this week. Mon Nov 30: a session or an easy run, not both. Thu Dec 3 before the flight: Session A (upper), so Friday legs isn't back-to-back with Session B.",
-   l:"Dec 1–2: off, walking only. Home: easy 6K on Sunday Dec 6, after Saturday's physio.",
+   l:"Dec 1–2: off, walking only. Home: easy 6K on Sunday Dec 6, after Saturday's physio (log it under Sunday).",
    c:"Physio Sat AM — do this after, or Sunday · Dips 3×6-8 at pre-trip weight · Pull-ups 3×6-8 at pre-trip weight · L-sit 4× max · Core circuit ×3",
    f:"Home Thursday Dec 3. Fri Dec 4: back to 2,100 / 1,900, and Friday legs at pre-trip weights minus the last set. Sat Dec 5: physio follow-up. Tell them how the knee handled the trip, and ask about going back to full Friday loads. The scale will read 2–4 lb high for a few days; it means nothing until Thursday Dec 10." },
  { num:12, dates:"Dec 7–13", tgt:"≤152",
@@ -231,6 +231,26 @@ const WEEKS = [
    l:"8K easy, long and slow. Go further only if you feel like it.",
    c:"Full volume. Test: best L-sit and best weighted dip on film.",
    f:"Last block week, still 2,100 / 1,900 (HOLD if the gate cleared). The cut runs to Wed Dec 16, three days past the block. Thursday Dec 10 is the real post-trip weigh-in: waist and all four photos, same spot and light as September. Export the backup Sunday and send it; that's the block review. Florida Dec 17–Jan 5: ~2,300, about one session a day, protein 150+, weigh Thursdays. New cut in January." },
+ { num:13, dates:"Dec 14–20", tgt:null, fla:true,
+   q:"4 min easy → 5× (3 min @ 5:25–5:30, controlled / 90s easy) → 3 min easy. 30 min total.",
+   l:"Wed Dec 16: 8K easy, long and slow.",
+   c:"Florida from Thursday: calisthenics optional · Dips 3×6-8 and pull-ups 3×6-8 if there's a gym · Core circuit ×3 anywhere",
+   f:"Block's done; the cut runs to Wed Dec 16. Thu Dec 17: weigh in before the flight, and that number is your Florida baseline. From then on: ~2,300, about one session a day, protein 150+." },
+ { num:14, dates:"Dec 21–27", tgt:null, fla:true,
+   q:"Easy run or controlled intervals, by feel, 25–35 min.",
+   l:"Long easy run, 6–10K, somewhere nice. In the heat, carry water past ~45 min.",
+   c:"If there's a gym: Dips 3×6-8 · Pull-ups 3×6-8 · Core circuit ×3",
+   f:"FLORIDA. ~2,300, protein 150+, about one session a day: the four lifts first, runs or tennis on the other days. Christmas dinner is one meal; don't make up for it with cardio or a low day. Thursday's weigh-in can read up to 3 lb high from water this first week." },
+ { num:15, dates:"Dec 28–Jan 3", tgt:null, fla:true,
+   q:"Easy run or controlled intervals, by feel, 25–35 min.",
+   l:"Long easy run, 6–10K.",
+   c:"If there's a gym: Dips 3×6-8 · Pull-ups 3×6-8 · Core circuit ×3",
+   f:"Thursday Dec 31 is the guardrail check: more than 3 lb over your Dec 17 weight → ~2,100 until it's back. New Year's is one night, same rule as Christmas." },
+ { num:16, dates:"Jan 4–10", tgt:null,
+   q:"Mon Jan 4 (still in Florida): easy, by feel.",
+   l:"Wed Jan 6, home: 8K easy.",
+   c:"Back to the full Saturday: Dips 3×6-8 · Pull-ups 3×6-8 · L-sit 4× max · Core circuit ×3",
+   f:"Home Tue Jan 5. Export the backup and send it: January gets built from it. A cut capped at ~6 weeks if you're close, or straight to building if more muscle is the real gap." },
 ];
 
 const LIFTS = {
@@ -239,7 +259,7 @@ const LIFTS = {
     ["Pull-ups","1×AMRAP","6 clean"],["Unilateral Lat Pulldown","2×8-10","60+"],["Machine / T-bar Row","2×6-8","165"],
     ["Rear Delt Fly","2×8-10","97.5"],["W Curls","3×6-8","25"],["Tricep Press-down","3×6-8","52.5"]] },
   tue:{ t:"Hips + Posterior — moderate day", s:"The knee-friendly day: hinge, glutes, split squats, core · leave 2–3 reps in the tank on everything · physio A before, B after · split squats ≤90°, right side first", i:[
-    ["PREP · Clamshell, banded","2×10 each","3s hold"],["PREP · Prone hip abduction","2×10 each","3s hold"],["PREP · Band side walk, legs straight","2×10 steps each way","",1],["PREP · Banded squat, knees pushing out","2×10","3s hold"],
+    ["PREP · Prone hip abduction","2×10 each","3s hold"],["PREP · Band side walk, legs straight","2×10 steps each way","",1],["PREP · Diagonal hip extension, banded","2×10 each","",1],["PREP · Side-step shuffle + mini squat, 2 cones","2×10","",1],["PREP · Banded squat, knees pushing out","2×10","3s hold"],
     ["Barbell RDL","3×6-8","52.5 ea"],["Smith Hip Thrust — squeeze glutes at top","2-3×8-10","90 ea · progress: reps, then weight"],
     ["Split Squats, ≤90°, right first","2×8-10 each","35 ea, build back"],["Hip Abductor","3×10-12","100"],
     ["Cable Crunch — progress this","3×10-12","16+"],["Hanging Leg Raises — clean reps only","2×max","BW"],
@@ -249,10 +269,10 @@ const LIFTS = {
     ["DB Shoulder Press","2×8-10","40 → hit 2×10, then 45"],["Upper Chest Cable Fly","2×10-12","7"],["Side Lat Raises","2×10-15",""],
     ["Machine Rear Delt Fly","2×12-15",""],["Overhead Tricep Ext — or seated DB / incline skull crusher","2×6-8","12"],["Rope Hammer Curl","2×6-8","14"],
     ["AFTER · Physio block C — hips + glutes","R ×4, L ×2","20s holds"]] },
-  fri:{ t:"Hard Legs — building back to full load", s:"Step the weight up only while the knee stays ≤3/10 and has settled by the next morning; if not, repeat last week's · physio block A before, B after · ≤90° on every squat pattern · knees out, weight even (feel the right foot), stand tall, squeeze glutes", i:[
-    ["PREP · Balance, standing, cycling other leg","2×20 each","right stance first"],["PREP · Diagonal hip extension, banded","2×10 each","",1],["PREP · Side-step shuffle + mini squat, 2 cones","2×10","",1],["PREP · Banded squat, knees pushing out","2×10","3s hold"],
-    ["Squats to a bench at 90°","3×5-8","40 ea Oct 30 → +5/wk → 50"],["Reverse Lunge, right first","2×8-10 each","barbell, build"],
-    ["Leg Curl — pad just above the heels","2×10-12","120 → +10 after 2 pain-free sessions → 140"],["Leg Extension","2×10-15","light, pain-free"],["Standing Calf Raises","3×10-15","195"],["Oblique machine — or woodchoppers / Pallof","2×10-12 each side","—"],["Wall sit, shallow (~30–45°)","2-3×30-45s","isometric, knee-calming"],
+  fri:{ t:"Hard Legs — building back to full load", s:"One knee load goes up at a time: in the 9K and 10K weeks the run is the one rising, so squats hold · step the weight up only while the knee stays ≤3/10 and has settled by the next morning; if not, repeat last week's · physio block A before, B after · ≤90° on every squat pattern · knees out, weight even (feel the right foot), stand tall, squeeze glutes", i:[
+    ["PREP · Clamshell, banded","2×10 each","3s hold"],["PREP · Band side walk, legs straight","2×10 steps each way","",1],["PREP · Balance, standing, cycling other leg","2×20 each","right stance first"],["PREP · Diagonal hip extension, banded","2×10 each","",1],["PREP · Banded squat, knees pushing out","2×10","3s hold"],
+    ["Squats to a bench at 90°","3×5-8","40 Oct 30 · 45 Nov 6 · hold 45 Nov 13 · 50 Nov 20 if quiet"],["Reverse Lunge, right first","2×8-10 each","barbell, build"],
+    ["Leg Curl — pad just above the heels","2×10-12","120 · hold until the Dec 5 physio, then +10s"],["Leg Extension — 90° to 45° only, not to full lockout","2×10-15","light, pain-free"],["Standing Calf Raises","3×10-15","195"],["Oblique machine — or woodchoppers / Pallof","2×10-12 each side","—"],["Wall sit, shallow (~30–45°)","2-3×30-45s","isometric, knee-calming"],
     ["AFTER · Physio block B — IT band + quads","R ×4, L ×2","20s holds"]] },
 };
 
@@ -261,7 +281,7 @@ const CARDIO = {
   thuB:"Bike commute, 15 min each way. That's your third cardio session; no separate run needed. Once it's too cold to bike: 20–30 min incline walk after Upper B instead.",
   friX:"Tennis 60 min, or 45 min incline walk. One or the other, never both.",
   satX:"Tennis 60–90 min, or 45–60 min incline walk.",
-  sunW:"Walk 30–60 min outside, fasted or fed — it makes no difference. Then genuinely rest: no 'easy' session that turns into a session. Heading for 12k+ steps? Eat 2,100, not 1,900.",
+  sunW:"Walk 30–60 min outside, fasted or fed — it makes no difference. Then genuinely rest: no 'easy' session that turns into a session. Heading for 12k+ steps? Eat 2,100, not 1,900. Physio block D at home (~12 min).",
 };
 
 const SESSIONS = [
@@ -312,9 +332,9 @@ const TRAVEL_HOW = `<b>Training window: Nov 25–30, plus the morning of Dec 3.<
   <b>Pack:</b> the physio mini band, plus a long loop band if you have one. Both fit in a shoe and cover the prep, the side walks and every room exercise.`;
 
 const RULES = [
- ["Protein never moves.","<b>165g every day</b> — training days, rest days, restaurants, travel. It is the single biggest lever you have for holding muscle in a deficit. Two days under 150g in a week and the week failed, whatever the calorie total said."],
- ["Load is not negotiable. Volume is.","What keeps muscle on you in a deficit is <b>heavy top sets</b>. If a session has to be short, cut the last accessory. Never drop the working weight on squats, incline, DB bench, pull-ups or RDL to make a session easier."],
- ["The deficit comes from food, not cardio.","Cardio is fixed at what's in this plan. <b>Never add a run, a walk, or 15 more minutes of incline to make up for a meal.</b> Stacking cardio onto a deficit is the most reliable way to end up skinny instead of lean — it eats recovery, not just fat."],
+ ["Protein never moves.","<b>165g every day</b> — training days, rest days, restaurants, travel. Alongside lifting heavy, it's the biggest lever you have for holding muscle in a deficit. An odd day under 150g is fine; a pattern of them is what costs you."],
+ ["Load is not negotiable. Volume is.","What keeps muscle on you in a deficit is <b>heavy top sets</b>. If a session has to be short, cut the last accessory. Don't drop the working weight on squats, incline, DB bench, pull-ups or RDL just to make a session easier. The knee rule overrides this: if the knee says lighter, go lighter."],
+ ["The deficit comes from food, not cardio.","Cardio is fixed at what's in this plan. <b>Never add a run, a walk, or 15 more minutes of incline to make up for a meal.</b> Stacking extra cardio onto a deficit eats into recovery and makes the deficit harder to read."],
  ["Never skip Friday legs.","It is the first session people quietly drop in a cut, and quads are where visible size goes first. <b>Tennis is not a leg day.</b> If you played in the morning, autoregulate the weight — don't cancel the session."],
  ["Judge on three-week trends and Thursday photos.","One weigh-in is noise. One bad session is noise. <b>Nothing changes on a single data point</b>, in either direction."],
  ["Creatine, 5g, every day.","Cheapest performance insurance there is in a deficit, and the one supplement with real evidence behind it. Timing is irrelevant — just don't miss days."],
@@ -360,8 +380,9 @@ function phaseFor(n) {                       // gate cleared -> HOLD from the fo
   return p;
 }
 function currentWeek() {
-  const d = Math.floor((Date.now() - START.getTime()) / 6048e5);
-  return Math.min(Math.max(d + 1, 1), 12);
+  const n = new Date();                      // count calendar days, so the Nov 1 clock change can't shift the week
+  const days = Math.round((Date.UTC(n.getFullYear(), n.getMonth(), n.getDate()) - Date.UTC(START.getFullYear(), START.getMonth(), START.getDate())) / 864e5);
+  return Math.min(Math.max(Math.floor(days / 7) + 1, 1), WEEKS.length);
 }
 let wk = currentWeek();
 let tab = "today";
@@ -433,8 +454,8 @@ function weighCard(week, where) {           // where = "today" | "log"; ids stay
   const L = logs[wk] || {};
   const lead = where === "today"
     ? "Wake, bathroom, weigh, before food or water. Same conditions every week. Then the photos."
-    : (week.tgt ? "Target this week: ~" + week.tgt + " lb" : "Travel week: no weigh-in needed. Log it only if you weighed.");
-  const ph = where === "today" ? (week.tgt ? "Target ~" + week.tgt + " lb" : "Travel week: no target") : "Weight, e.g. 154.2 lb";
+    : (week.tgt ? "Target this week: ~" + week.tgt + " lb" : week.fla ? "Florida: weigh Thursdays. After the first week, more than 3 lb over Dec 17 → ~2,100." : "Travel week: no weigh-in needed. Log it only if you weighed.");
+  const ph = where === "today" ? (week.tgt ? "Target ~" + week.tgt + " lb" : week.fla ? "Dec 17 = your Florida baseline" : "Travel week: no target") : "Weight, e.g. 154.2 lb";
   return `<div class="card key"><div class="slab">THURSDAY AM WEIGH-IN</div>
     <div class="sub">${lead}</div>${week.wr ? `<div class="note" style="color:var(--tx2);margin-top:4px">${week.wr}</div>` : ""}
     <input id="w-${where}" inputmode="decimal" placeholder="${ph}" value="${esc(L.weight)}"
@@ -551,7 +572,7 @@ function render(scroll) {
         <div class="liftrow"><span class="n">Sat tennis <em>or</em> incline</span><span class="s mono">60–90 / 45–60 min</span></div>
         <div class="liftrow"><span class="n">Sun walk</span><span class="s mono">30–60 min</span></div></div>
       <div class="card key"><div class="slab">GOAL · EASY 10K BY WED NOV 18</div>
-        <div class="plan" style="color:var(--tx2)"><b>Distance, not pace.</b> Wednesdays build 8K (Nov 4) → 9K (Nov 11) → 10K (Nov 18), all conversational. It's your last run before California. No gels or bottle needed for an hour in November; eat beforehand. <b>8K sub-45 already done:</b> 44:43 on Oct 28. <b>Monday intervals:</b> comfortably hard, never all-out; you should be able to say a few words at the end of each rep. <b>Wednesday:</b> long and slow, conversational the whole way. Easy running at two runs a week doesn't cost you muscle; the lifting and protein are what protect it.</div></div>
+        <div class="plan" style="color:var(--tx2)"><b>Distance, not pace.</b> Wednesdays build 8K (Nov 4) → 9K (Nov 11) → 10K (Nov 18), all conversational. It's your last long run before California. No gels or bottle needed for an hour in November; eat beforehand. <b>8K sub-45 already done:</b> 44:43 on Oct 28. <b>Monday intervals:</b> comfortably hard, never all-out; you should be able to say a few words at the end of each rep. <b>Wednesday:</b> long and slow, conversational the whole way. Easy running at two runs a week doesn't cost you muscle; the lifting and protein are what protect it.</div></div>
       <div class="note">If the week collapses, drop Monday's quality run. Never Wednesday. Physio stretches: block C after Monday's run, block B after Wednesday's.</div>`;
   }
 
@@ -573,18 +594,20 @@ function render(scroll) {
           <div class="sub" style="margin-top:14px;color:var(--a)">RUNS</div><div class="plan" style="color:var(--tx2);font-size:12.5px">${TRAVEL_RUNS} Long downhills load the kneecap more.</div></div></details>
       <div class="card key"><div class="slab">PHYSIO PROGRAM v2 — HIPS & KNEE · SPLIT, NOT DAILY</div>
         <div class="sub">Oct 30 review: getting better. IT band still tight, hip flexors still weak, not flexible enough yet. The plan is strengthening the muscles around the knee to take load off the joint. <b style="color:var(--tx2)">Follow-up: Sat Dec 5.</b></div>
-        <div class="sub" style="margin-top:8px;color:var(--a)">A · ACTIVATION — before Tue &amp; Fri legs (~8–10 min)</div>
+        <div class="sub" style="margin-top:8px;color:var(--a)">A · ACTIVATION — before Tue &amp; Fri legs (~10 min)</div>
         <div class="sub" style="margin:2px 0 0">Tuesday</div>
-        <div class="liftrow"><span class="n">Clamshell, banded</span><span class="s mono">2×10 each · 3s</span></div>
         <div class="liftrow"><span class="n">Prone hip abduction</span><span class="s mono">2×10 each · 3s</span></div>
         <div class="liftrow swap"><span class="n">Band side walk, legs straight — band just above the knees, toes forward, hips level</span><span class="s mono">2×10 steps each way</span></div>
-        <div class="liftrow"><span class="n">Squat with band, knees pushing out</span><span class="s mono">2×10 · 3s</span></div>
-        <div class="sub" style="margin:8px 0 0">Friday</div>
-        <div class="liftrow"><span class="n">Balance, standing, cycling leg</span><span class="s mono">2×20 each</span></div>
         <div class="liftrow swap"><span class="n">Diagonal hip extension, banded — kick back and out at 45°, squeeze the glute, no back arch</span><span class="s mono">2×10 each</span></div>
         <div class="liftrow swap"><span class="n">Side-step shuffle + mini squat between 2 cones, alternate lead leg</span><span class="s mono">2×10</span></div>
         <div class="liftrow"><span class="n">Squat with band, knees pushing out</span><span class="s mono">2×10 · 3s</span></div>
-        <div class="sub" style="margin-top:10px;color:var(--a)">B · STRETCH: IT BAND + QUADS — after Tue &amp; Fri legs and the Wed run (~6 min)</div>
+        <div class="sub" style="margin:8px 0 0">Friday</div>
+        <div class="liftrow"><span class="n">Clamshell, banded</span><span class="s mono">2×10 each · 3s</span></div>
+        <div class="liftrow"><span class="n">Band side walk, legs straight</span><span class="s mono">2×10 steps each way</span></div>
+        <div class="liftrow"><span class="n">Balance, standing, cycling leg</span><span class="s mono">2×20 each</span></div>
+        <div class="liftrow"><span class="n">Diagonal hip extension, banded</span><span class="s mono">2×10 each</span></div>
+        <div class="liftrow"><span class="n">Squat with band, knees pushing out</span><span class="s mono">2×10 · 3s</span></div>
+        <div class="sub" style="margin-top:10px;color:var(--a)">B · STRETCH: IT BAND + QUADS — after Tue &amp; Fri legs and the Wed run (~6 min; she wrote 2 rounds for the IT band and quad, so do a second when you have time)</div>
         <div class="liftrow swap"><span class="n">IT band, lying — knee across the body with the opposite hand, shoulders down</span><span class="s mono">R ×4 · L ×2 · 20s</span></div>
         <div class="liftrow"><span class="n">Standing side-bend, legs crossed, arm overhead</span><span class="s mono">R ×4 · L ×2 · 20s</span></div>
         <div class="liftrow swap"><span class="n">Quad, face down with a strap — hips pressed into the floor, stop short of knee pain</span><span class="s mono">R ×4 · L ×2 · 20s</span></div>
@@ -592,11 +615,13 @@ function render(scroll) {
         <div class="liftrow"><span class="n">Hip flexor, block — tuck pelvis under, squeeze back-leg glute, then lean; reach same-side arm up</span><span class="s mono">R ×4 · L ×2 · 20s</span></div>
         <div class="liftrow"><span class="n">Figure-4, lying</span><span class="s mono">R ×4 · L ×2 · 20s</span></div>
         <div class="liftrow"><span class="n">Cross-body piriformis, lying</span><span class="s mono">R ×4 · L ×2 · 20s</span></div>
-        <div class="sub" style="margin-top:10px;color:var(--a)">D · HOME — Sunday (~12 min)</div>
+        <div class="sub" style="margin-top:10px;color:var(--a)">D · HOME STRENGTH — Sunday (~12 min)</div>
+        <div class="liftrow"><span class="n">Clamshell, banded</span><span class="s mono">2×10 each · 3s</span></div>
+        <div class="liftrow"><span class="n">Prone hip abduction</span><span class="s mono">2×10 each · 3s</span></div>
         <div class="liftrow"><span class="n">Supine banded leg press</span><span class="s mono">2×10 each · 3s</span></div>
-        <div class="liftrow"><span class="n">Clamshell + prone abduction</span><span class="s mono">2×10 each · 3s</span></div>
-        <div class="liftrow"><span class="n">Block B again (she doubled the IT band and quad stretches)</span><span class="s mono">as above</span></div>
-        <div class="note">All 14 of her exercises, split so no slot runs past ~10 min. Some stretching lands every day (B four times a week, C three), because flexibility only moves with frequency: about 5 min per muscle per week, spread out. The strengthening is what actually takes load off the knee. The IT band itself barely stretches; these work on the hip muscles that pull on it. Right side gets the extra reps because it's the tight side.</div></div>
+        <div class="liftrow"><span class="n">Balance, standing, cycling leg</span><span class="s mono">2×20 each</span></div>
+        <div class="liftrow"><span class="n">Side-step shuffle + mini squat</span><span class="s mono">2×10</span></div>
+        <div class="note">All 14 of her exercises, split so no slot runs past ~12 min. Every strengthening exercise except the banded leg press lands twice a week, because strengthening is what actually takes load off the knee. Stretching runs alongside it: B three times a week, C three, for about 4–5 min per muscle per week. The IT band itself barely stretches; these work on the hip muscles that pull on it. Right side gets the extra reps because it's the tight side. <b style="color:var(--tx2)">This split is mine, not hers:</b> send it to her through PhysiApp and adjust to whatever she says.</div></div>
       <div class="card"><div class="slab">CORE CIRCUIT — THE ×3</div>
         <div class="liftrow"><span class="n">Med ball overhead crunch</span><span class="s mono">12–15</span></div>
         <div class="liftrow"><span class="n">Reverse crunch</span><span class="s mono">12–15</span></div>
@@ -612,8 +637,8 @@ function render(scroll) {
         <div class="plan" style="color:var(--tx2)">Not a date. Checked every Thursday from week 7, morning, fasted, flat overhead light, relaxed:</div>
         <ol><li><b>Lower two abs visible</b> — not just the top four</li>
             <li><b>Serratus visible at rest</b></li>
-            <li><b>Weight at or under 151</b> and holding</li></ol>
-        <div class="note">All three land → stop cutting that week and go to HOLD. <b style="color:var(--tx)">Hard floor: 148 lb.</b> Below that at 6'0 you're trading the physique for a smaller copy of it. If the gate hasn't cleared at 149, the answer is more muscle — not less food.<br><br>Not cleared by Thu Nov 19? Nothing gets forced before the trip. The cut picks up again Dec 4–16, and January carries on from there.</div></div>
+            <li><b>Weight around 151–152 or lower</b>, as a sanity check: if the photos clearly say yes at 152, the photos win</li></ol>
+        <div class="note">All three land → stop cutting that week and go to HOLD. <b style="color:var(--tx)">Hard floor: 148 lb.</b> Below that at 6'0 you're trading the physique for a smaller copy of it. If the gate hasn't cleared at 149, the answer is more muscle — not less food.<br><br>Realistically the gate clears late December or in January, not before the trip. Not cleared by Thu Nov 19? Nothing gets forced. The cut picks up again Dec 4–16, and January carries on from there.</div></div>
       <div class="card"><div class="slab">TRIPWIRES — ANY ONE AND CALORIES GO +150/DAY, SAME DAY</div>
         ${WIRES.map(w => `<div class="wire">${w}</div>`).join("")}
         <div class="note">No debate, no waiting a week to see. You have a documented history of under-eating relative to your activity and the hot flashes last block were the receipt.</div></div>
@@ -623,9 +648,9 @@ function render(scroll) {
         ${PHASES.concat([HOLD]).map(p => `<div class="liftrow"><span class="n">${p.id ? "Phase " + p.id + " · " : "If the gate clears · "}${p.name} <span style="color:var(--dim)">${p.span}</span></span>
           <span class="s mono">${p.map || (p.cal + " / " + p.rest)}</span></div>`).join("")}
         <div class="note">Training day / Sunday unless the row says otherwise. Right now: <b style="color:var(--tx2)">${phase.mac}</b> · ${phase.rate}.<br>
-        Weeks 1–4 at ~2,300 actual held the scale flat (155.4 → 156.3), so maintenance on a full home week is ~2,300–2,400, well under the ~2,725 the formula and Garmin suggested. 2,100 / 1,900 averages ~2,070, a 250–300/day deficit: it took you from 156.3 to 154.0 and from 30.7" to 30.3" in two weeks.<br><br>
+        Weeks 1–4 at ~2,300 actual held the scale flat (155.4 → 156.3), so maintenance on a full home week is ~2,300–2,400, well under the ~2,725 the formula and Garmin suggested. 2,100 / 1,900 averages ~2,070. The three-week trend (0.6 lb/wk) says that's a ~300/day deficit; the faster two-week drop (156.3 → 154.0) includes water leaving after the deload week. Waist 30.7" → 30.3". Recheck after Nov 19 with four more Thursdays.<br><br>
         <b style="color:var(--tx2)">Travel burns less.</b> The California program is ~250/day less training than a home week, so maintenance on the road is ~2,100–2,200, and closer to 2,350 on a 15k+ step day. That's why the break is ~2,200, not 2,350. A diet break means eating at maintenance; the extra carbs still refill you.<br><br>
-        <b style="color:var(--tx2)">Florida</b> is about one session a day, also less than home, so ~2,300 is at or just above maintenance. The Thursday weigh-in decides: more than 3 lb over your Dec 17 weight after the first week → ~2,100 until it's back.<br><br>Fat sits at 27% of calories — inside the 15–30% band, with carbs taking the rest. Sunday: P165 · C185 · F56.<br><br>Protein is above 1 g/lb on purpose. Requirement scales with LEAN mass, not bodyweight, and rises in a deficit: 165g = 2.7 g/kg LBM, mid-range of the 2.3–3.1 recommended for lean athletes cutting. It stays 165 all the way down — your lean mass isn't supposed to change, so neither does the number.<br><br>Timing beats totals: put ~150g of the day's carbs in the meal before and the meal after training, and take the rest out of the evening. Same number on the label, fuel where it does work, less food sitting on you at night.</div></div>`;
+        <b style="color:var(--tx2)">Florida</b> is about one session a day, also less than home, so ~2,300 is at or just above maintenance. The Thursday weigh-in decides: more than 3 lb over your Dec 17 weight after the first week → ~2,100 until it's back.<br><br>Fat sits at 27% of calories — inside the 15–30% band, with carbs taking the rest. Sunday: P165 · C185 · F56.<br><br>Protein is above 1 g/lb on purpose. Requirement scales with LEAN mass, not bodyweight, and rises in a deficit: 165g = 2.7 g/kg LBM, mid-range of the 2.3–3.1 recommended for lean athletes cutting. It stays 165 all the way down — your lean mass isn't supposed to change, so neither does the number.<br><br>Totals come first; timing is a small edge on top. Putting ~150g of the day's carbs in the meals before and after training fuels the sessions, and it may feel better than a big late dinner, but the daily numbers are what decide the result.</div></div>`;
   }
 
   document.getElementById("app").innerHTML = `
@@ -648,7 +673,7 @@ function render(scroll) {
     <div class="tabs">${[["today","today"],["log","log"],["runs","runs"],["lifts","lifts"],["rules","rules"]].map(t =>
       `<button class="mono ${tab===t[0]?"on":""}" onclick="tab='${t[0]}';render()">${t[1]}</button>`).join("")}</div>
     ${body}
-    <div class="foot mono"><span id="savebadge">${logLabel()}</span><span>155.5 → ~150 · ABS, NOT A DATE</span></div>`;
+    <div class="foot mono"><span id="savebadge">${logLabel()}</span><span>155.5 → THE GATE · ABS, NOT A DATE</span></div>`;
   if (scroll) window.scrollTo(0, 0);
 }
 render();
